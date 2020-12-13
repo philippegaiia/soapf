@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Liste des Fournisseurs') }}
+            {{ __('Liste des Catégories Ingrédients') }}
         </h2>
     </x-slot>
 
@@ -9,8 +9,8 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
                 <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
-                        <x-buttons.secondary-button href="{{ route('suppliers.create') }}" class="block">
-                            {{ __('Créer un nouveau fournisseur') }}
+                        <x-buttons.secondary-button href="{{ route('ingredient_categories.create') }}" class="block capitalize">
+                            {{ __('Créer une nouvelle catégorie Ingrédient') }}
                         </x-buttons.secondary-button>
                 </div>
                 <div class="">
@@ -24,65 +24,41 @@
                                                 Code
                                             </th>
                                             <th scope="col" class="table-head">
-                                                Société
+                                                Nom
                                             </th>
-                                            <th scope="col" class="table-head">
-                                                Statut
-                                            </th>
-                                            <th scope="col" class="table-head">
-                                                Ville
-                                            </th>
-                                            <th scope="col" class="table-head">
-                                                Pays
-                                            </th>
+
                                             <th scope="col" class="table-head">
                                                 Actions
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        @forelse ($suppliers as $supplier)
+                                        @forelse ($ingredientCategories as $ingredientCategory)
                                             <tr>
                                                 <x-tables.table-detail>
-                                                    {{ $supplier->code }}
+                                                    {{ $ingredientCategory->code }}
                                                 </x-tables.table-detail>
 
                                                  <x-tables.table-detail>
-                                                    {{ $supplier->name }}
-                                                </x-tables.table-detail>
-
-                                                <x-tables.table-active class="px-2 {{ $supplier->active == 'Actif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                                    {{ $supplier->active }}
-                                                </x-tables.table-active>
-
-                                                <x-tables.table-detail>
-                                                     {{ $supplier->zip }} {{ $supplier->city }}
-                                                </x-tables.table-detail>
-
-                                                 <x-tables.table-detail>
-                                                    {{ $supplier->country }}
+                                                    {{ $ingredientCategory->name }}
                                                 </x-tables.table-detail>
 
                                                 <td class=" whitespace-nowrap py-2 flex">
 
-                                                        <x-buttons.show-button-sm href="{{ route('suppliers.show', ['supplier' => $supplier]) }}" class="ml-4">
-                                                        </x-buttons.show-button-sm>
+                                                    <x-buttons.edit-button-sm href="{{ route('ingredient_categories.edit', ['ingredient_category' => $ingredientCategory] )}}" class="ml-4">
+                                                    </x-buttons.edit-button-sm>
 
-                                                    <a href="{{ route('suppliers.edit', ['supplier' => $supplier] )}}">
-                                                        <x-buttons.edit-button-sm class="ml-4">
-                                                        </x-buttons.edit-button-sm>
-                                                    </a>
-
-                                                    <form action="{{ route('suppliers.destroy', ['supplier' => $supplier] )}}" method="POST">
+                                                    <form action="{{ route('ingredient_categories.destroy', ['ingredient_category' => $ingredientCategory] )}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $supplier->name }}?')">
+                                                        <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain d effacer la ctégorie {{ $ingredientCategory->name }}?')">
                                                         </x-buttons.delete-button-sm>
                                                     </form>
+
                                                 </td>
                                             </tr>
                                             @empty
-                                            <h3>Il n'y a pas de Fournisseurs enregistrés</h3>
+                                            <p class="font-semibold text-md text-gray-800 leading-tight">Il n'y a pas de Catégories enregistrées</h3>
                                         @endforelse
                                         <!-- More rows... -->
                                     </tbody>

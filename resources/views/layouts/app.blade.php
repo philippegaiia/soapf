@@ -21,15 +21,14 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class=" bg-white shadow mb-6">
+            <header class="bg-white shadow mb-6">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
-
             </header>
 
             @if (session()->has('message'))
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-4 pb-1 px-4 overflow-x-auto whitespace-no-wrap ">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-1 px-4 overflow-x-auto whitespace-no-wrap ">
                     <x-success-message>
                         <span class="text-green-500 font-semibold">Succès!</span>
                         <p class="text-gray-600 text-sm">{{ session()->get('message') }}</p>

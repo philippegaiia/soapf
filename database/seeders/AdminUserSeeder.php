@@ -17,7 +17,17 @@ class AdminUserSeeder extends Seeder
     {
         User::create([
             'name' => 'Phil',
-            'email' => 'phil@mail.com',
+            'email' => 'philippe@gaiia.fr',
+            'role_id' => 1,
+            'email_verified_at' => now(),
+            'password' => bcrypt('savonnier'),
+            'role_id' => 1,
+            'remember_token' => Str::random(10),
+        ]);
+
+        User::create([
+            'name' => 'Franck',
+            'email' => 'contact@gaiia.fr',
             'role_id' => 1,
             'email_verified_at' => now(),
             'password' => bcrypt('savonnier'),

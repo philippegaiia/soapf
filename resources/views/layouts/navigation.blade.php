@@ -20,6 +20,10 @@
                         {{ __('Fournisseurs') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('ingredient_categories.index')" :active="request()->routeIs('ingredient_categories.index')">
+                        {{ __('Catégories Ingrédients') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
@@ -73,6 +77,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.index')">
                 {{ __('Fournisseurs') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ingredient_categories.index')" :active="request()->routeIs('ingredient_categories.index')">
+                {{ __('Catégories Ingrédients') }}
             </x-responsive-nav-link>
         </div>
 
