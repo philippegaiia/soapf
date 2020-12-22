@@ -21,7 +21,7 @@
                     <form action="{{ route('suppliers.destroy', ['supplier' => $supplier] )}}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $supplier->name }}?')">
+                        <x-buttons.delete-button-sm class="ml-3" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $supplier->name }}?')">
                         </x-buttons.delete-button-sm>
                     </form>
 

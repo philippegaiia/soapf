@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\SupplierListingController;
 use App\Http\Controllers\IngredientCategoryController;
 
 /*
@@ -31,6 +33,9 @@ Route::get('/dashboard', function () {
 Route::resource('suppliers', SupplierController::class)->middleware('auth');
 Route::resource('ingredient_categories', IngredientCategoryController::class)->except('show')->middleware('auth');
 Route::resource('ingredients', IngredientController::class)->middleware('auth');
+Route::resource('suppliers.listings', SupplierListingController::class)->middleware('auth');
+Route::resource('listings', ListingController::class)->middleware('auth');
+
 
 
 require __DIR__.'/auth.php';

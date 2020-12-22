@@ -4,7 +4,7 @@
             {{ __('Créer un fournisseur') }}
         </h2>
     </x-slot>
-    <div class="py-10">
+    <div class="">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="max-w-4xl mx-auto p-6 bg-white border-b border-gray-200">
@@ -31,9 +31,9 @@
                         <div class="mt-4">
                             <label for="active" class="block text-sm font-medium text-gray-700">Statut</label>
                             <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="" disabled>Sélectionner une situation</option>
+                            <option value="old('active') ?? ''" selected>Sélectionner une situation</option>
                                 @foreach ($supplier->activeOptions() as $activeOptionKey => $activeOptionValue)
-                                    <option value="{{ old('activeOptionKey') ?? $activeOptionKey }}" {{ $supplier->active == $activeOptionValue ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+                                    <option value="{{ $activeOptionKey }}" {{ $supplier->active == $activeOptionValue ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
                                 @endforeach
                             </select>
                         </div>

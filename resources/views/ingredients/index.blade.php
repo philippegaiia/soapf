@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
-                <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
+                <div class="flex items-center pb-3 text-right sm:justify-center md:justify-end ">
                     <x-buttons.secondary-button href="{{ route('ingredients.create') }}" class="block">
                         {{ __('Créer un nouvel ingrédient') }}
                     </x-buttons.secondary-button>
@@ -59,8 +59,12 @@
                                                     {{ $ingredient->active }}
                                                 </x-tables.table-active>
 
-                                                 <x-tables.table-detail>
+
+
+                                                <x-tables.table-detail>
+                                                     @if (isset($ingredient->ingredientCategory->name ))
                                                     {{ $ingredient->ingredientCategory->name }}
+                                                    @endif
                                                 </x-tables.table-detail>
 
                                                 <td class=" whitespace-nowrap py-2 flex">

@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 .table-head {
-    @apply px-6 py-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider;
+    @apply px-6 py-2 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider;
 }
 
 .description-dt {

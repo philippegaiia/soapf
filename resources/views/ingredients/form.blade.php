@@ -8,7 +8,7 @@
 <!-- Name -->
 <div class="mt-4">
     <x-label for="name" :value="__('Nom ingrédient')" />
-    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? $ingredient->name" required autofocus />
+    <x-input id="name" class="mt-1 w-full" type="text" name="name" :value="old('name') ?? $ingredient->name" required autofocus />
     <x-input-error for="name" class="mt-2" />
 </div>
 
@@ -18,7 +18,7 @@
     <select id="ingredient_category_id" name="ingredient_category_id"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
     <option value="" disabled>Sélectionner une catégorie</option>
         @foreach ($categories as $category)
-            <option value="{{ $category->id}}" {{  old('ingredient_category_id') ==  $category->id || $category->id == $ingredient->ingredient_category_id ? 'selected' : ''  }}> {{ $category->name }} </option>
+            <option value="{{ $category->id}}" {{ (old('ingredient_category_id') ?? $category->id) == $ingredient->ingredient_category_id ? 'selected' : ''  }}> {{ $category->name }} </option>
         @endforeach
     </select>
     <x-input-error for="ingredient_category_id" class="mt-2" />
@@ -30,7 +30,7 @@
     <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
     <option value="" disabled>Sélectionner une situation</option>
         @foreach ($ingredient->activeOptions() as $activeOptionKey => $activeOptionValue)
-            <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionKey || $ingredient->active == $activeOptionValue) ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+            <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $ingredient->active == $activeOptionValue) ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
         @endforeach
     </select>
 </div>

@@ -65,20 +65,26 @@
 
                                                 <td class=" whitespace-nowrap py-2 flex">
 
-                                                        <x-buttons.show-button-sm href="{{ route('suppliers.show', ['supplier' => $supplier]) }}" class="ml-4">
-                                                        </x-buttons.show-button-sm>
+                                                    <x-buttons.add-button  class="bg-pink-50 ml-3 hover:bg-pink-100">
+                                                        {{ __('Commande') }}
+                                                    </x-buttons.add-button>
 
-                                                    <a href="{{ route('suppliers.edit', ['supplier' => $supplier] )}}">
-                                                        <x-buttons.edit-button-sm class="ml-4">
-                                                        </x-buttons.edit-button-sm>
-                                                    </a>
+                                                    <x-buttons.add-button href="{{ route('suppliers.listings.create', ['supplier' => $supplier]) }}" class="bg-purple-50 hover:bg-purple-100 ml-3">
+                                                        {{ __('Listing') }}
+                                                    </x-buttons.add-button>
 
-                                                    <form action="{{ route('suppliers.destroy', ['supplier' => $supplier] )}}" method="POST">
+                                                    <x-buttons.show-button-sm href="{{ route('suppliers.show', ['supplier' => $supplier]) }}" class="ml-4">
+                                                    </x-buttons.show-button-sm>
+
+                                                    <x-buttons.edit-button-sm href="{{ route('suppliers.edit', ['supplier' => $supplier] )}}" class="ml-4">
+                                                    </x-buttons.edit-button-sm>
+
+                                                    {{-- <form action="{{ route('suppliers.destroy', ['supplier' => $supplier] )}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $supplier->name }}?')">
                                                         </x-buttons.delete-button-sm>
-                                                    </form>
+                                                    </form> --}}
                                                 </td>
                                             </tr>
                                             @empty

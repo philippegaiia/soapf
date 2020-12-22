@@ -77,6 +77,8 @@ class SupplierController extends Controller
      */
     public function update(Supplier $supplier)
     {
+
+        //dd(Request());
         $supplier->update($this->validateRequest());
 
         return redirect('suppliers/' .  $supplier->id)->with('message' , 'Le fournisseur a été mis à jour avec succès');

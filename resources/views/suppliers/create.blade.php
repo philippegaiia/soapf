@@ -29,7 +29,7 @@
                         <div class="mt-4">
                             <x-label for="active" :value="__('Statut')" />
                             <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="" disabled>Sélectionner une situation</option>
+                            <option value="old('active') ?? ''" selected>Sélectionner une situation</option>
                                 @foreach ($supplier->activeOptions() as $activeOptionKey => $activeOptionValue)
                                     <option value="{{ $activeOptionKey }}" {{ $supplier->active == $activeOptionValue ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
                                 @endforeach
