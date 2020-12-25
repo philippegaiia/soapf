@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
+use App\Models\Supplier;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class ListingController extends Controller
@@ -43,9 +46,9 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Listing $listing)
     {
-        //
+        return view('listings.show', compact('listing'));
     }
 
     /**
@@ -54,9 +57,9 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Listing $listing, Ingredient $ingredient)
     {
-        //
+        return view('listings.edit', compact('listing', 'ingredient'));
     }
 
     /**

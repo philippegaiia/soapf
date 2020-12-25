@@ -52,7 +52,7 @@ public function ingredient()
         return empty($search) ? static::query()
              : static::where('supplier_ref', 'like', '%'.$search.'%')
                 ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('supplier_id', 'like', '%'.$search.'%')
+                ->orWhere('code', 'like', '%'.$search.'%')
                 ;
     }
 

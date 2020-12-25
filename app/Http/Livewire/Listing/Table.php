@@ -16,6 +16,11 @@ class Table extends Component
     public $sortAsc = true;
     public $selected = [];
 
+    public function mount()
+    {
+
+    }
+
     public function render()
     {
         return view('livewire.listing.table', [

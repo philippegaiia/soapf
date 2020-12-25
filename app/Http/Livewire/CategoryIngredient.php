@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Listing;
 use Livewire\Component;
 use App\Models\Ingredient;
 use App\Models\IngredientCategory;
@@ -10,11 +11,12 @@ class CategoryIngredient extends Component
 {
     public $categories;
     public $ingredients;
+    public $listing;
 
     public $selectedCategory = NULL;
     public $selectedIngredient = NULL;
 
-    public function mount()
+    public function mount(Listing $listing, Ingredient $ingredient)
     {
         $this->categories = IngredientCategory::all();
         $this->ingredients = collect();
