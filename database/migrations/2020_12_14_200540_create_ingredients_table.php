@@ -18,6 +18,7 @@ class CreateIngredientsTable extends Migration
             $table->foreignId('ingredient_category_id')->constrained();
             $table->string('code')->nullable();
             $table->string('name');
+            $table->string('name_en');
             $table->string('inci');
             $table->string('cas')->nullable();
             $table->string('einecs')->nullable();

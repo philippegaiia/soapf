@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\Supplier;
-use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Models\Ingredient;
 
 class ListingController extends Controller
 {
@@ -57,9 +57,10 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Listing $listing, Ingredient $ingredient)
+    public function edit(Listing $listing)
     {
-        return view('listings.edit', compact('listing', 'ingredient'));
+        $ingredients = Ingredient::all();
+        return view('listings.edit', compact('listing', 'ingredients'));
     }
 
     /**
@@ -69,9 +70,11 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Listing $listing)
     {
-        //
+        $listing->update($this->validateRequest());
+
+        return redirect()->route('listings.index')->with('message', 'Un listing a été modifié');
     }
 
     /**
@@ -83,5 +86,19 @@ class ListingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validateRequest(){
+
+        return request()->validate([
+            'ingredient_id' => 'required',
+            'code' => 'nullable|max:6',
+            'supplier_ref' => 'nullable|max:12',
+            'name' => 'required',
+            'organic' => 'required',
+            'fairtrade' => 'required',
+            'active' =>'required',
+            'infos' => 'nullable|max:1000',
+        ]);
     }
 }

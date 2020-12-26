@@ -41,13 +41,13 @@ class SupplierListingController extends Controller
     {
         $data = request()->validate([
             'ingredient_id' => 'required',
-            'code' => 'nullable',
-            'supplier_ref' => 'nullable',
+            'code' => 'nullable|max:6',
+            'supplier_ref' => 'nullable|max:12',
             'name' => 'required',
             'organic' => 'required',
             'fairtrade' => 'required',
             'active' =>'required',
-            'infos' => 'nullable',
+            'infos' => 'nullable|max:1000',
         ]);
 
         $data['supplier_id'] = $supplier->id;

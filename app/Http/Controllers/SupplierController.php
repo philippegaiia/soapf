@@ -77,9 +77,22 @@ class SupplierController extends Controller
      */
     public function update(Supplier $supplier)
     {
+        $data = request()->validate([
+            'code' => "required|size:3|unique:suppliers,code,$supplier->id",
+            'name' => 'required|max:40',
+            'active' => 'required',
+            'contact' => 'required|max:40',
+            'email' => 'required|max:40',
+            'tel' => 'required|max:14',
+            'address1' =>'nullable|max:30',
+            'address2' =>'nullable|max:30',
+            'zip' =>'nullable|max:6',
+            'city' => 'nullable|max:30',
+            'country' => 'nullable|max:30',
+            'infos' => 'nullable|max:1000'
+        ]);
 
-        //dd(Request());
-        $supplier->update($this->validateRequest());
+        $supplier->update($data);
 
         return redirect('suppliers/' .  $supplier->id)->with('message' , 'Le fournisseur a été mis à jour avec succès');
     }
@@ -100,7 +113,7 @@ class SupplierController extends Controller
     public function validateRequest()
     {
         return request()->validate([
-            'code' => 'required|size:3',
+            'code' => 'required|size:3|unique:suppliers,code',
             'name' => 'required|max:40',
             'active' => 'required',
             'contact' => 'required|max:40',

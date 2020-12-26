@@ -16,7 +16,7 @@ class CategoryIngredient extends Component
     public $selectedCategory = NULL;
     public $selectedIngredient = NULL;
 
-    public function mount(Listing $listing, Ingredient $ingredient)
+    public function mount()
     {
         $this->categories = IngredientCategory::all();
         $this->ingredients = collect();

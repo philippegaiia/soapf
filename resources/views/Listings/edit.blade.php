@@ -11,8 +11,9 @@
                 <div class="max-w-3xl mx-auto p-6 bg-white border-b border-gray-200">
                     <form method="POST" action="{{ route('listings.update', ['listing' => $listing ]) }}">
                     @csrf
+                    @method('PATCH')
 
-                    @include('suppliers.listings.form')
+                    @include('listings.form')
                     </form>
                 </div>
             </div>

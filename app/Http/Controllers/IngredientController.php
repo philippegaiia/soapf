@@ -77,8 +77,20 @@ class IngredientController extends Controller
      */
     public function update(Ingredient $ingredient)
     {
-        $ingredient->update($this->validateRequest());
-        //return redirect('ingredients/' . $ingredient->id);
+        $data = request()->validate([
+            'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
+            'name' => 'required|max:60',
+            'name_en' => 'max:60',
+            'inci' => 'required|max:60',
+            'cas' => 'max:20',
+            'einecs' => 'max:20',
+            'ingredient_category_id' => 'required',
+            'infos' => 'max:1000',
+            'active' => 'required'
+        ]);
+
+        $ingredient->update($data);
+
         return redirect('ingredients')->with('message', 'L\'ingrédient a été modifié !');
     }
 
@@ -97,8 +109,9 @@ class IngredientController extends Controller
     private function validateRequest(){
 
         return request()->validate([
-            'code' => 'required|min:2',
+            'code' => 'required|min:2|unique:ingredients,code',
             'name' => 'required|max:60',
+            'name_en' => 'max:60',
             'inci' => 'required|max:60',
             'cas' => 'max:20',
             'einecs' => 'max:20',

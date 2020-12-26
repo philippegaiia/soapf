@@ -97,6 +97,7 @@ class IngredientCategoryController extends Controller
         return request()->validate([
             'code' => 'required|min:2',
             'name' => 'required|min:5|max:50',
+            'name_en' => 'min:5|max:50'
         ]);
     }
 }

@@ -24,9 +24,9 @@
                         <x-buttons.delete-button-sm class="ml-3" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $listing->name }}?')">
                         </x-buttons.delete-button-sm>
                     </form>
-
+php
                     <x-buttons.liste-button
-                        href="{{ route('suppliers.index')}}" class="ml-3">
+                        href="{{ route('listings.index')}}" class="ml-3">
                     </x-buttons.liste-button>
 
                 </div>

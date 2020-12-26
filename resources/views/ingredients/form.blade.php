@@ -12,6 +12,13 @@
     <x-input-error for="name" class="mt-2" />
 </div>
 
+<!-- Name english -->
+<div class="mt-4">
+    <x-label for="name_en" :value="__('Nom ingrédient - Anglais')" />
+    <x-input id="name_en" class="mt-1 w-full" type="text" name="name_en" :value="old('name_en') ?? $ingredient->name_en" autofocus />
+    <x-input-error for="name_en" class="mt-2" />
+</div>
+
 <!-- Categorie -->
 <div class="mt-4">
     <x-label for="ingredient_category_id" :value="__('Catégorie')" />

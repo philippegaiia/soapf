@@ -26,6 +26,13 @@
                             <x-input-error for="name" class="mt-2" />
                         </div>
 
+                        <!-- Name english-->
+                        <div class="mt-4">
+                            <x-label for="name-en" :value="__('Catégorie Anglais')" />
+                            <x-input id="name_en" class="block mt-1 w-full" type="text" name="name" :value="old('name_en') ?? $ingredient_category->name_en" required autofocus />
+                            <x-input-error for="name_en" class="mt-2" />
+                        </div>
+
                         <div class="flex items-center justify-end mt-4">
                             <x-buttons.secondary-button href="{{ url()->previous() }}">
                                 {{ __('Annuler') }}

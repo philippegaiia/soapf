@@ -76,9 +76,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse ($listings as $listing)
-                                    <tr>
-
-
+                                    <tr class="hover:bg-gray-50">
                                         <x-tables.table-detail>
                                             {{ $listing->code }}
                                         </x-tables.table-detail>
