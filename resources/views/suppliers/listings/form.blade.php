@@ -23,8 +23,6 @@
     <x-input-error for="name" class="mt-2" />
 </div>
 
-
-
 <!-- Statut -->
 <div class="mt-4">
     <x-label for="active" :value="__('Statut')" />
@@ -44,8 +42,7 @@
             <input id="organic" type="checkbox" value="1" {{ $listing->organic || old('organic', 0) === 1 ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="organic">
             <span class="ml-2 text-sm text-gray-600">{{ __('Biologique') }}</span>
         </label>
-            <x-input-error for="organic" class="mt-2" />
-
+        <x-input-error for="organic" class="mt-2" />
     </div>
 
     <!-- fairtrade -->
@@ -55,8 +52,7 @@
             <input id="fairtrade" type="checkbox" value="1" {{ $listing->fairtrade || old('fairtrade', 0) === 1 ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="fairtrade">
             <span class="ml-2 text-sm text-gray-600">{{ __('Fair Trade') }}</span>
         </label>
-            <x-input-error for="fairtrade" class="mt-2" />
-
+        <x-input-error for="fairtrade" class="mt-2" />
     </div>
 </div>
 <!-- cas -->

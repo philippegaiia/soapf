@@ -26,9 +26,9 @@
                                             <th scope="col" class="table-head">
                                                 Société
                                             </th>
-                                            <th scope="col" class="table-head">
+                                            {{-- <th scope="col" class="table-head">
                                                 Statut
-                                            </th>
+                                            </th> --}}
                                             <th scope="col" class="table-head">
                                                 Ville
                                             </th>
@@ -47,13 +47,13 @@
                                                     {{ $supplier->code }}
                                                 </x-tables.table-detail>
 
-                                                 <x-tables.table-detail>
+                                                 <x-tables.table-detail class="uppercase">
                                                     {{ $supplier->name }}
                                                 </x-tables.table-detail>
 
-                                                <x-tables.table-active class="{{ $supplier->active == 'Actif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                {{-- <x-tables.table-active class="{{ $supplier->active == 'Actif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                                     {{ $supplier->active }}
-                                                </x-tables.table-active>
+                                                </x-tables.table-active> --}}
 
                                                 <x-tables.table-detail>
                                                      {{ $supplier->zip }} {{ $supplier->city }}

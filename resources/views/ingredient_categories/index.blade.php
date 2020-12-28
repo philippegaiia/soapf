@@ -26,6 +26,9 @@
                                             <th scope="col" class="table-head">
                                                 Nom
                                             </th>
+                                            <th scope="col" class="table-head">
+                                                Nom anglais
+                                            </th>
 
                                             <th scope="col" class="table-head">
                                                 Actions
@@ -39,8 +42,12 @@
                                                     {{ $ingredientCategory->code }}
                                                 </x-tables.table-detail>
 
-                                                 <x-tables.table-detail>
+                                                <x-tables.table-detail>
                                                     {{ $ingredientCategory->name }}
+                                                </x-tables.table-detail>
+
+                                                <x-tables.table-detail>
+                                                    {{ $ingredientCategory->name_en }}
                                                 </x-tables.table-detail>
 
                                                 <td class=" whitespace-nowrap py-2 flex">

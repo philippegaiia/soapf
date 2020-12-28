@@ -14,7 +14,7 @@ class IngredientCategoryController extends Controller
      */
     public function index()
     {
-        $ingredientCategories = IngredientCategory::all();
+        $ingredientCategories = IngredientCategory::orderBy('code')->get();
 
         return view('ingredient_categories.index', compact('ingredientCategories'));
     }
@@ -40,7 +40,7 @@ class IngredientCategoryController extends Controller
     {
         IngredientCategory::create($this->validateRequest());
 
-        return redirect('ingredient_categories')->with('message' , 'Une nouvelle catégorie a été créé avec succès');
+        return redirect('ingredient_categories')->with('message' , 'Une nouvelle catégorie ingrédients a été créé avec succès');
     }
 
     /**
@@ -76,7 +76,7 @@ class IngredientCategoryController extends Controller
     {
         $ingredient_category->update($this->validateRequest());
 
-        return redirect('ingredient_categories');
+        return redirect('ingredient_categories')->with('message' , 'Une nouvelle catégorie ingrédients a été mise à jour avec succès');
     }
 
     /**
@@ -97,7 +97,7 @@ class IngredientCategoryController extends Controller
         return request()->validate([
             'code' => 'required|min:2',
             'name' => 'required|min:5|max:50',
-            'name_en' => 'min:5|max:50'
+            'name_en' => 'required|min:5|max:50',
         ]);
     }
 }

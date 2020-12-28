@@ -65,6 +65,10 @@
                             </dt>
                             <dd class="description-dd">
                             {{ $supplier->email}}
+                                <a href="mailto:{{ $supplier->email}}">
+                                <svg class="w-6 h-6 inline-block items-center ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                                </a>
+
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -78,7 +82,16 @@
                             </dd>
                         </div>
 
-                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="description-dt">
+                            Site internet
+                            </dt>
+                            <dd class="description-dd">
+                            <a href="https://{{ $supplier->www}}" target="_blank"><span class="hover:text-blue-900 hover:underline">{{ $supplier->www}}</span> </a>
+                            </dd>
+                        </div>
+
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Informations supplémentaires
                             </dt>
@@ -87,7 +100,7 @@
                             </dd>
                         </div>
 
-                        <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Statut
                             </dt>

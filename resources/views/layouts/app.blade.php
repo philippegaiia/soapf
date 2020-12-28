@@ -32,7 +32,7 @@
             </header>
 
             @if (session()->has('message'))
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-1 px-4 overflow-x-auto whitespace-no-wrap ">
+                <div class="max-w-7xl mx-auto px-4 pb-1 mb-2 sm:px-6 lg:px-8 whitespace-no-wrap ">
                     <x-success-message>
                         <span class="text-green-500 font-semibold">Succès!</span>
                         <p class="text-gray-600 text-sm">{{ session()->get('message') }}</p>

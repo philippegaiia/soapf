@@ -79,17 +79,19 @@ class SupplierController extends Controller
     {
         $data = request()->validate([
             'code' => "required|size:3|unique:suppliers,code,$supplier->id",
-            'name' => 'required|max:40',
+            'customer_no' => 'nullable|max:20',
+            'name' => 'required|max:50',
             'active' => 'required',
-            'contact' => 'required|max:40',
+            'contact' => 'required|max:545',
             'email' => 'required|max:40',
-            'tel' => 'required|max:14',
-            'address1' =>'nullable|max:30',
-            'address2' =>'nullable|max:30',
-            'zip' =>'nullable|max:6',
-            'city' => 'nullable|max:30',
+            'tel' => 'required|max:16',
+            'address1' =>'nullable|max:45',
+            'address2' =>'nullable|max:45',
+            'zip' =>'nullable|max:8',
+            'city' => 'nullable|max:40',
             'country' => 'nullable|max:30',
-            'infos' => 'nullable|max:1000'
+            'infos' => 'nullable|max:1000',
+            'www' => 'nullable|max:45',
         ]);
 
         $supplier->update($data);
@@ -114,17 +116,19 @@ class SupplierController extends Controller
     {
         return request()->validate([
             'code' => 'required|size:3|unique:suppliers,code',
-            'name' => 'required|max:40',
+            'customer_no' => 'nullable|max:20',
+            'name' => 'required|max:50',
             'active' => 'required',
-            'contact' => 'required|max:40',
+            'contact' => 'required|max:545',
             'email' => 'required|max:40',
-            'tel' => 'required|max:14',
-            'address1' =>'nullable|max:30',
-            'address2' =>'nullable|max:30',
-            'zip' =>'nullable|max:6',
-            'city' => 'nullable|max:30',
+            'tel' => 'required|max:16',
+            'address1' =>'nullable|max:45',
+            'address2' =>'nullable|max:45',
+            'zip' =>'nullable|max:8',
+            'city' => 'nullable|max:40',
             'country' => 'nullable|max:30',
-            'infos' => 'nullable|max:1000'
+            'infos' => 'nullable|max:1000',
+            'www' => 'nullable|max:45',
         ]);
     }
 }

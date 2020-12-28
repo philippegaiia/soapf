@@ -25,17 +25,6 @@
                             <x-input-error for="name" class="mt-2" />
                         </div>
 
-                        <!-- Statut -->
-                        <div class="mt-4">
-                            <x-label for="active" :value="__('Statut')" />
-                            <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="old('active') ?? ''" selected>Sélectionner une situation</option>
-                                @foreach ($supplier->activeOptions() as $activeOptionKey => $activeOptionValue)
-                                    <option value="{{ $activeOptionKey }}" {{ $supplier->active == $activeOptionValue ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <!-- Contact -->
                         <div class="mt-4">
                             <x-label for="contact" :value="__('Nom Contact')" />
@@ -57,6 +46,13 @@
 
                             <x-input id="tel" class="block mt-1 w-full" type="tel" name="tel" :value="old('tel')"/>
                             <x-input-error for="tel" class="mt-2" />
+                        </div>
+
+                        <!-- www -->
+                        <div class="mt-4">
+                            <x-label for="www" :value="__('Site Internet')" />
+                            <x-input id="www" class="block mt-1 w-full" type="text" name="www" :value="old('www') ?? $supplier->www"/>
+                            <x-input-error for="www" class="mt-2" />
                         </div>
 
                         <!-- Address 1 -->
@@ -99,6 +95,17 @@
                             <x-label for="infos" :value="__('Informations')" />
                             <x-textarea id="infos" class="block mt-1 w-full" rows="5" name="infos" :value="old('infos')"/>
                             <x-input-error for="infos" class="mt-2" />
+                        </div>
+
+                        <!-- Statut -->
+                        <div class="mt-4">
+                            <x-label for="active" :value="__('Statut')" />
+                            <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="old('active') ?? ''" selected>Sélectionner une situation</option>
+                                @foreach ($supplier->activeOptions() as $activeOptionKey => $activeOptionValue)
+                                    <option value="{{ $activeOptionKey }}" {{ $supplier->active == $activeOptionValue ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

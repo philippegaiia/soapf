@@ -11,7 +11,20 @@ class Ingredient extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+            'code',
+            'name',
+            'name_en',
+            'inci',
+            'inci_koh',
+            'inci_naoh',
+            'cas',
+            'cas_einecs',
+            'einecs',
+            'ingredient_category_id',
+            'infos',
+            'active'
+    ];
 
     protected $attributes =[
         'active' => 1,
@@ -25,6 +38,11 @@ class Ingredient extends Model
     public function listings()
     {
         return $this->hasMany(Listing::class);
+    }
+
+    public function documentations()
+    {
+        return $this->morphMany(Documentation::class, 'documentationable');
     }
 
     public function getActiveAttribute($attribute){

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateIngredientsTable extends Migration
 {
@@ -20,13 +21,20 @@ class CreateIngredientsTable extends Migration
             $table->string('name');
             $table->string('name_en');
             $table->string('inci');
+            $table->string('inci_naoh')->nullable();
+            $table->string('inci_koh')->nullable();
             $table->string('cas')->nullable();
+            $table->string('cas_einecs')->nullable();
             $table->string('einecs')->nullable();
             $table->smallInteger('active');
             $table->text('infos')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Artisan::call('db:seed', [
+            '--class' => IngredientSeeder::class
+        ]);
     }
 
     /**

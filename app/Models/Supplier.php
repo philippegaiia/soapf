@@ -12,7 +12,7 @@ class Supplier extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'code','name','active','contact','email','tel','address1','address2','zip','city','country','infos'
+        'code','customer_no','name','active','contact','email','tel','address1','address2','zip','city','country','infos', 'www'
     ];
 
     protected $attributes =[

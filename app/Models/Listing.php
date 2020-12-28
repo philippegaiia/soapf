@@ -32,6 +32,11 @@ public function ingredient()
         return $this->hasMany(Supply::class);
     }
 
+    public function documentations()
+    {
+        return $this->morphMany(Documentation::class, 'documentationable');
+    }
+
     public function getActiveAttribute($attribute){
         return $this->activeOptions()[$attribute];
     }

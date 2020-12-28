@@ -11,7 +11,7 @@ class IngredientCategory extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable =['code', 'name'];
+    protected $fillable =['code', 'name', 'name_en'];
 
     public function ingredients()
     {

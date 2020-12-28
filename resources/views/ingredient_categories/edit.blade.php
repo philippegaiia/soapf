@@ -28,8 +28,8 @@
 
                         <!-- Name english-->
                         <div class="mt-4">
-                            <x-label for="name-en" :value="__('Catégorie Anglais')" />
-                            <x-input id="name_en" class="block mt-1 w-full" type="text" name="name" :value="old('name_en') ?? $ingredient_category->name_en" required autofocus />
+                            <x-label for="name_en" :value="__('Catégorie Anglais')" />
+                            <x-input id="name_en" class="block mt-1 w-full" type="text" name="name_en" :value="old('name_en') ?? $ingredient_category->name_en" required autofocus />
                             <x-input-error for="name_en" class="mt-2" />
                         </div>
 

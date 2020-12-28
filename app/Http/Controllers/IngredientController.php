@@ -15,8 +15,10 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        $ingredients = Ingredient::orderBy('code')->get();
-        return view('ingredients.index', ['ingredients' => $ingredients]);
+        // $ingredients = Ingredient::orderBy('code')->get();
+        // return view('ingredients.index', ['ingredients' => $ingredients]);
+
+        return view('ingredients.index');
     }
 
     /**
@@ -37,9 +39,41 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request, Ingredient $ingredient)
     {
-        Ingredient::create($this->validateRequest());
+
+        $countIngredientsInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->count();
+
+        if ($countIngredientsInCategory > 0){
+            $lastCodeInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->firstOrFail()->id;
+            $codeCategory = Ingredient::findOrFail($lastCodeInCategory);
+            $code = $codeCategory->ingredientCategory->code;
+        } else {
+            $categoryId = $request->ingredient_category_id;
+            $codeCategory = IngredientCategory::findOrFail($categoryId);
+            $code = $codeCategory->code;
+        }
+
+        $data = request()->validate([
+            // 'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
+            'name' => 'required|max:60',
+            'name_en' => 'max:60',
+            'inci' => 'required|max:60',
+            'inci_koh' => 'max:60',
+            'inci_naoh' => 'max:60',
+            'cas' => 'max:40',
+            'cas_einecs' => 'max:40',
+            'einecs' => 'max:20',
+            'ingredient_category_id' => 'required',
+            'infos' => 'max:1000',
+            'active' => 'required'
+        ]);
+
+        $data['code'] = $code . ($countIngredientsInCategory + 1);
+
+        // dd($data);
+
+        Ingredient::create($data);
         return redirect('ingredients');
     }
 
@@ -78,11 +112,14 @@ class IngredientController extends Controller
     public function update(Ingredient $ingredient)
     {
         $data = request()->validate([
-            'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
+            // 'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
             'name' => 'required|max:60',
             'name_en' => 'max:60',
             'inci' => 'required|max:60',
-            'cas' => 'max:20',
+            'inci_koh' => 'max:60',
+            'inci_naoh' => 'max:60',
+            'cas' => 'max:40',
+            'cas_einecs' => 'max:40',
             'einecs' => 'max:20',
             'ingredient_category_id' => 'required',
             'infos' => 'max:1000',
@@ -106,18 +143,4 @@ class IngredientController extends Controller
         return redirect('ingredients')->with('message', 'L\'ingrédient a été effacé !');
     }
 
-    private function validateRequest(){
-
-        return request()->validate([
-            'code' => 'required|min:2|unique:ingredients,code',
-            'name' => 'required|max:60',
-            'name_en' => 'max:60',
-            'inci' => 'required|max:60',
-            'cas' => 'max:20',
-            'einecs' => 'max:20',
-            'ingredient_category_id' => 'required',
-            'infos' => 'max:1000',
-            'active' => 'required'
-        ]);
-    }
 }

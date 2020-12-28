@@ -59,7 +59,7 @@
 
                         <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">Code INCI</dt>
-                            <dd class="description-dd">{{ $ingredient->inci}}</dd>
+                            <dd class="description-dd">{{ $ingredient->inci}} </dd>
                         </div>
 
                         <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -72,6 +72,11 @@
                             <dd class="description-dd">{{ $ingredient->einecs}}</dd>
                         </div>
 
+                        <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="description-dt">Code INCI si saponification (soude - potasse)</dt>
+                            <dd class="description-dd">{{ $ingredient->inci_naoh}} - {{ $ingredient->inci_koh}}</dd>
+                        </div>
+
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Informations supplémentaires
@@ -80,6 +85,13 @@
                                 {{ $ingredient->infos }}
                             </dd>
                         </div>
+                        <div>
+
+                        </div>
+                        <form action="">
+                        {{-- <livewire:ingredient.add-documents :ingredient="$ingredient" /> --}}
+                        @livewire('ingredient.add-documents', ['ingredient' => $ingredient], key($ingredient->id))
+                            </div></form>
 
                     {{-- <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
@@ -127,6 +139,6 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+{{-- </div>
+</div> --}}
 </x-app-layout>
