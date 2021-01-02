@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\SupplierOrderController;
 use App\Http\Controllers\SupplierListingController;
 use App\Http\Controllers\IngredientCategoryController;
 
@@ -35,6 +37,8 @@ Route::resource('ingredient_categories', IngredientCategoryController::class)->e
 Route::resource('ingredients', IngredientController::class)->middleware('auth');
 Route::resource('suppliers.listings', SupplierListingController::class)->middleware('auth');
 Route::resource('listings', ListingController::class)->middleware('auth');
+Route::resource('suppliers.orders', SupplierOrderController::class)->middleware('auth');
+Route::resource('orders', OrderController::class)->middleware('auth');
 
 
 

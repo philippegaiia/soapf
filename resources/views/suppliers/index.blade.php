@@ -65,7 +65,7 @@
 
                                                 <td class=" whitespace-nowrap py-2 flex">
 
-                                                    <x-buttons.add-button  class="bg-pink-50 ml-3 hover:bg-pink-100">
+                                                    <x-buttons.add-button  href="{{ route('suppliers.orders.create', ['supplier' => $supplier]) }}" class="bg-pink-50 ml-3 hover:bg-pink-100">
                                                         {{ __('Commande') }}
                                                     </x-buttons.add-button>
 

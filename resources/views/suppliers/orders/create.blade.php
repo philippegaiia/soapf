@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Modifier un ingrédient') }}
+            {{ __('Créer une commande chez ') }} {{ $supplier->name }}
         </h2>
     </x-slot>
 
@@ -9,10 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="max-w-3xl mx-auto p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('ingredients.update', ['ingredient' => $ingredient]) }}">
+                    <form method="POST" action="{{ route('suppliers.orders.store', ['supplier' => $supplier]) }}">
                     @csrf
-                    @method('PATCH')
-                       @include('ingredients.form')
+                    @include('suppliers.orders.form')
                     </form>
                 </div>
             </div>
