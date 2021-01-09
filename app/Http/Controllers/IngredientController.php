@@ -74,7 +74,7 @@ class IngredientController extends Controller
         // dd($data);
 
         Ingredient::create($data);
-        return redirect('ingredients');
+        return redirect('ingredients')->with('message', 'L\'ingrédient '.$data['name'].' a bien été créé !' );
     }
 
     /**

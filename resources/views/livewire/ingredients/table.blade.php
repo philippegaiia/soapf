@@ -1,11 +1,11 @@
 <div>
-   <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
-        <div class="flex items-center pb-3 text-right sm:justify-center md:justify-between ">
-            <div class="w-2/9 mx-2">
-                <input wire:model.debounce.400ms="search" type="text" class="appearance-none block w-full bg-blue-50 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:border-blue-200 focus:bg-white focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" placeholder="Rechercher un ingrédient...">
+   {{-- <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200"> --}}
+        <div class="flex items-center py-3 text-right sm:justify-center md:justify-between ">
+            <div class="w-3/12 ml-1 mr-2">
+                <input wire:model.debounce.400ms="search" type="text" class="appearance-none block w-full text-sm font-medium bg-white text-gray-700 border border-blue-300 rounded py-2 px-4 leading-tight focus:outline-none focus:border-blue-200  focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" placeholder="Rechercher un ingrédient...">
             </div>
-            <div class="w-2/9 relative mx-2">
-                <select wire:model="searchCategory" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <div class="w-3/12 relative mx-2">
+                <select wire:model="searchCategory" class="block appearance-none w-full text-sm font-medium bg-white border border-blue-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none  focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                     <option value="">-- Choisir une catégorie --</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -17,8 +17,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="w-2/9 relative mx-2">
-                <select wire:model="sortField" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <div class="w-2/12 relative mx-2">
+                <select wire:model="sortField" class="block appearance-none w-full text-sm font-medium bg-white border border-blue-300  py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                     <option value="name">Désignation</option>
                     <option value="inci">inci</option>
                     <option value="ingredient_category_id">Categorie</option>
@@ -29,8 +29,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="w-1/9 relative mx-2">
-                <select wire:model="sortAsc" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white  focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <div class="w-2/12 relative mx-2">
+                <select wire:model="sortAsc" class="block appearance-none w-full text-sm font-medium bg-white border border-blue-300  text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none   focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                     <option value="1">Ascending</option>
                     <option value="0">Descending</option>
                 </select>
@@ -40,8 +40,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="w-1/9 relative mx-2">
-                <select wire:model="perPage" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <div class="w-1/12 relative mx-2">
+                <select wire:model="perPage" class="block appearance-none w-full text-sm font-medium bg-white border border-blue-300  text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none  focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                     <option>10</option>
                     <option>25</option>
                     <option>50</option>
@@ -53,8 +53,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="w-1/9 relative mx-2">
-                <x-buttons.add-button href="{{ route('ingredients.create') }}" class="">
+            <div class="w-2/12 relative mx-2">
+                <x-buttons.add-button href="{{ route('ingredients.create') }}" class=" bg-white border   ">
                     {{ __('Nouvel ingrédient') }}
                 </x-buttons.add-button>
             </div>
@@ -62,7 +62,7 @@
         <div class="">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="mb-4 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <div class="mb-4 shadow overflow-hidden border-b border-gray-300 sm:rounded-lg">
                         @if ($ingredients->isNotEmpty())
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -144,5 +144,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    {{-- </div> --}}
 </div>

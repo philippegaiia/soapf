@@ -40,6 +40,9 @@
                         <x-dropdown-link :href="route('ingredient_categories.index')">
                                 {{ __('Catégories Ingrédients') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('orders.index')">
+                                {{ __('Commandes') }}
+                        </x-dropdown-link>
                         {{-- </form> --}}
                     </x-slot>
                 </x-dropdown>

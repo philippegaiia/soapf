@@ -14,6 +14,13 @@ class Table extends Component
     public $sortField = 'order_ref';
     public $sortDirection = 'asc';
     public $showEditModal = false;
+    public Order $editing;
+
+    protected $queryString = ['sortField', 'sortDirection'];
+
+    protected $rules = [
+        'editing.order_ref' => 'required',
+    ];
 
     public function sortBy($field)
     {
@@ -26,9 +33,18 @@ class Table extends Component
         $this->sortField = $field;
     }
 
-    public function edit()
+    public function edit(Order $order)
     {
-         $this->showEditModal  = true;
+        $this->editing  = $order;
+        $this->showEditModal = true;
+
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $this->editing->save();
+        $this->showEditModal = false;
     }
 
     public function render()
@@ -36,7 +52,7 @@ class Table extends Component
         return view('livewire.orders.table', [
             'orders' =>Order::search('order_ref', $this->search)
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(12),
+            ->paginate(10),
         ]);
     }
 }
