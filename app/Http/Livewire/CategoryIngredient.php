@@ -12,7 +12,6 @@ class CategoryIngredient extends Component
     public $categories;
     public $ingredients;
     public $listing;
-
     public $selectedCategory = NULL;
     public $selectedIngredient = NULL;
 

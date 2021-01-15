@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         @livewireStyles
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +26,7 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow mb-6">
+            <header class="bg-white shadow mb-2">
                 <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -47,5 +48,6 @@
             </main>
         </div>
         @livewireScripts
+        <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     </body>
 </html>

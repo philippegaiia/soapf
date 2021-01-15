@@ -7,8 +7,8 @@
             <div class="flex items-center px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 {{-- <dt class="description-dt">Statut</dt> --}}
                 {{-- <dd class="description-dd "> --}}
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-lg font-semibold leading-4 bg-{{ $order->active_color }}-100 text-{{ $order->active_color }}-800 capitalize">
-                        {{ $order->active }}
+                    <span class="inline-flex items-center px-3 py-1.5 rounded-full text-lg font-semibold leading-4 bg-{{ $order->active_color }}-100 text-{{ $order->active_color }}-800 capitalize">
+                        {{ $order->active_name }}
                     </span>
                 {{-- </dd> --}}
             </div>

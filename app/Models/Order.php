@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -16,6 +17,13 @@ class Order extends Model
     //
     protected $guarded = [];
 
+    const STATUSES = [
+        0 => 'Draft',
+        1 => 'Passée',
+        2 => 'Confirmée',
+        3 => 'Livrée'
+    ];
+
     //  protected $casts = [
     //     'order_date' => 'date:ymd-s',
     //     'delivery_date' => 'date:ymd-s',
@@ -24,11 +32,15 @@ class Order extends Model
     protected $casts = [
         'order_date' => 'date',
         'delivery_date' => 'date',
+        'amount' => MoneyCast::class,
+        'freight' => MoneyCast::class,
     ];
 
-    protected $attributes =[
-        'active' => 0,
-    ];
+    protected $appends = ['order_date_for_editing', 'delivery_date_for_editing'];
+
+    // protected $attributes =[
+    //     'active' => 0,
+    // ];
 
     public function supplier()
     {
@@ -40,28 +52,38 @@ class Order extends Model
         return $this->hasMany(Supply::class);
     }
 
-     public function getActiveAttribute($attribute)
-    {
-        return $this->activeOptions()[$attribute];
-    }
+    //  public function getActiveAttribute($attribute)
+    // {
+    //     return $this->activeOptions()[$attribute];
+    // }
 
-     public function activeOptions(){
-        return [
-            0 => 'Draft',
-            1 => 'Passée',
-            2 => 'Confirmée',
-            3 => 'Livrée',
-        ];
-    }
+    //  public function activeOptions(){
+    //     return [
+    //         0 => 'Draft',
+    //         1 => 'Passée',
+    //         2 => 'Confirmée',
+    //         3 => 'Livrée',
+    //     ];
+    // }
 
     public function getActiveColorAttribute()
     {
         return [
-            'Draft' => 'blue',
-            'Passée' => 'yellow',
-            'Confirméé' => 'indigo',
-            'Livrée' => 'green'
+            0 => 'gray',
+            1 => 'yellow',
+            2 => 'indigo',
+            3 => 'green'
         ][$this->active] ?? 'gray';
+    }
+
+    public function getActiveNameAttribute()
+    {
+        return [
+            0 => 'Draft',
+            1 => 'Passée',
+            2 => 'Confirmée',
+            3 => 'Livrée'
+        ][$this->active];
     }
 
     public function getOrderDateForHumansAttribute()
@@ -73,4 +95,37 @@ class Order extends Model
     {
         return $this->delivery_date->format('M, d, Y');
     }
+
+
+    public function getOrderDateForEditingAttribute()
+    {
+        return $this->order_date->format('m/d/Y');
+    }
+
+    public function setOrderDateForEditingAttribute($value)
+    {
+        $this->order_date = Carbon::parse($value);
+    }
+
+    public function getDeliveryDateForEditingAttribute()
+    {
+        return $this->delivery_date->format('m/d/Y');
+    }
+
+    public function setDeliveryDateForEditingAttribute($val)
+    {
+        $this->delivery_date = Carbon::parse($val);
+    }
+
+    // public function getAmountForEditingAttribute()
+    // {
+    //     return $this->amount->format('m/d/Y');
+    // }
+
+    // public function setAmountForEditingAttribute($amt)
+    // {
+    //     $this->amount = $amt * 100;
+    // }
+
+
 }

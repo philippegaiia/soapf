@@ -20,6 +20,8 @@ class CreateListingsTable extends Migration
             $table->string('code')->nullable();
             $table->string('supplier_ref')->nullable();
             $table->string('name');
+            $table->smallInteger('pkg_unit');
+            $table->float('unit_weight', 8, 3);
             $table->boolean('organic')->default(true);
             $table->boolean('fairtrade')->default(false);
             $table->smallInteger('active');
