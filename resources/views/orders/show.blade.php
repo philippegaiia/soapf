@@ -71,6 +71,23 @@
                             </div>
 
 
+                                <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-8 sm:gap-4 sm:px-6">
+
+                                        <dt class="description-dt">Montant HT</dt>
+                                        <dd class="description-dd">{{ $order->amount}} Euros</dd>
+
+
+
+
+                                        <dt class="description-dt">Freight</dt>
+                                        <dd class="description-dd">{{ $order->freight}} Euros</dd>
+
+                                </div>
+
+
+
+
+
 
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="description-dt">

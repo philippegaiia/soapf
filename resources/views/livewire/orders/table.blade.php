@@ -164,12 +164,17 @@
                         <x-input.date wire:model="editing.delivery_date_for_editing" id="delivery_date_for_editing" />
                     </x-input.group>
 
-                    <!-- Numero de bl -->
+                    <!-- Order confirmation number -->
+                    <x-input.group for="confirmation_no" label="No Confirmation" :error="$errors->first('editing.confirmation_no')">
+                        <x-input.text wire:model="editing.confirmation_no" id="bl_no" />
+                    </x-input.group>
+
+                    <!-- BL  number -->
                     <x-input.group for="bl_no" label="No Bon de Livraison" :error="$errors->first('editing.bl_no')">
                         <x-input.text wire:model="editing.bl_no" id="bl_no" />
                     </x-input.group>
 
-                    <!-- Numéro de facture-->
+                    <!-- Invoice number-->
                     <x-input.group for="invoice_no" label="No Facture" :error="$errors->first('editing.invoice_no')">
                         <x-input.text wire:model="editing.invoice_no" id="invoice_no" />
                     </x-input.group>
@@ -183,11 +188,11 @@
                         </x-input.select>
                     </x-input.group>
 
-                    <x-input.group inline for="amount" label="Montant HT">
+                    <x-input.group  for="amount" label="Montant HT" :error="$errors->first('editing.amount')">
                         <x-input.money wire:model.lazy="editing.amount" id="amount" />
                     </x-input.group>
 
-                    <x-input.group inline for="freight" label="Freight">
+                    <x-input.group  for="freight" label="Freight" :error="$errors->first('editing.freight')">
                         <x-input.money wire:model.lazy="editing.freight" id="freight" />
                     </x-input.group>
 

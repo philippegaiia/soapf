@@ -10,8 +10,8 @@
             <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
                 <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
 
-                    <x-buttons.add-button href="{{ route('suppliers.listings.create', $listing->supplier->id) }}" class="block">
-                        {{ __('listing pour') }} {{ $listing->supplier->name }}
+                    <x-buttons.add-button href="{{ route('listings.create', $listing->supplier->id) }}" class="block">
+                        {{ __('Ajouter un autre listing') }}
                     </x-buttons.add-button>
 
                     <x-buttons.edit-button-sm href="{{ route('listings.edit', ['listing' => $listing]) }}" class="block ml-3">
@@ -24,7 +24,7 @@
                         <x-buttons.delete-button-sm class="ml-3" onclick="return confirm('Etes-vous certain d effacer le fournisseur {{ $listing->name }}?')">
                         </x-buttons.delete-button-sm>
                     </form>
-php
+
                     <x-buttons.liste-button
                         href="{{ route('listings.index')}}" class="ml-3">
                     </x-buttons.liste-button>
@@ -72,7 +72,7 @@ php
                             Type
                             </dt>
                             <dd class="description-dd">
-                            {{ $listing->organic == 1 ? 'Biologique' : 'Conventionnel' }}
+                            {{ $listing->organic}}
                             </dd>
                         </div>
 

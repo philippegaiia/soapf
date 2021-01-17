@@ -39,13 +39,17 @@ class SupplierListingController extends Controller
      */
     public function store (Supplier $supplier)
     {
+
         $data = request()->validate([
             'ingredient_id' => 'required',
             'code' => 'nullable|max:6',
             'supplier_ref' => 'nullable|max:12',
             'name' => 'required',
+            'pkg' => 'required',
+            'unit_weight' => 'required|numeric',
             'organic' => 'required',
             'fairtrade' => 'required',
+            'cosmos' => 'required',
             'active' =>'required',
             'infos' => 'nullable|max:1000',
         ]);

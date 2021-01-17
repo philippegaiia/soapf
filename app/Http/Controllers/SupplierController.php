@@ -82,7 +82,7 @@ class SupplierController extends Controller
             'customer_no' => 'nullable|max:20',
             'name' => 'required|max:50',
             'active' => 'required',
-            'contact' => 'required|max:545',
+            'contact' => 'required|max:50',
             'email' => 'required|max:40',
             'tel' => 'required|max:16',
             'address1' =>'nullable|max:45',

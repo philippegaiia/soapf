@@ -26,7 +26,9 @@ class ListingController extends Controller
      */
     public function create()
     {
-        //
+        $listing = new Listing();
+        $suppliers = Supplier::all();
+        return view('listings.create', compact('listing', 'suppliers'));
     }
 
     /**
@@ -37,7 +39,24 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //  $data = request()->validate([
+        //     'supplier_id' => 'required',
+        //     'ingredient_id' => 'required',
+        //     'code' => 'nullable|max:6',
+        //     'supplier_ref' => 'nullable|max:12',
+        //     'name' => 'required',
+        //     'pkg' => 'required',
+        //     'unit_weight' => 'required|numeric',
+        //     'organic' => 'required',
+        //     'fairtrade' => 'required',
+        //     'cosmos' => 'required',
+        //     'active' =>'required',
+        //     'infos' => 'nullable|max:1000',
+        // ]);
+
+        $listing = Listing::create($this->validateRequest());
+
+        return redirect()->route('listings.show', $listing->id);
     }
 
     /**
@@ -59,8 +78,9 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
+        $suppliers = Supplier::all();
         $ingredients = Ingredient::all();
-        return view('listings.edit', compact('listing', 'ingredients'));
+        return view('listings.edit', compact('listing', 'ingredients', 'suppliers'));
     }
 
     /**
@@ -73,7 +93,6 @@ class ListingController extends Controller
     public function update(Listing $listing)
     {
         $listing->update($this->validateRequest());
-
         return redirect()->route('listings.index')->with('message', 'Un listing a été modifié');
     }
 
@@ -83,20 +102,26 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Listing $listing)
     {
-        //
+         $listing->delete();
+
+        return redirect('listings');
     }
 
     private function validateRequest(){
 
         return request()->validate([
+           'supplier_id' => 'required',
             'ingredient_id' => 'required',
             'code' => 'nullable|max:6',
             'supplier_ref' => 'nullable|max:12',
             'name' => 'required',
+            'pkg' => 'required',
+            'unit_weight' => 'required|numeric|max:20000',
             'organic' => 'required',
             'fairtrade' => 'required',
+            'cosmos' => 'required',
             'active' =>'required',
             'infos' => 'nullable|max:1000',
         ]);

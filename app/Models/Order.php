@@ -30,8 +30,8 @@ class Order extends Model
     // ];
 
     protected $casts = [
-        'order_date' => 'date',
-        'delivery_date' => 'date',
+        'order_date' => 'date:ymd-s',
+        'delivery_date' => 'date:ymd-s',
         'amount' => MoneyCast::class,
         'freight' => MoneyCast::class,
     ];
@@ -51,20 +51,6 @@ class Order extends Model
     {
         return $this->hasMany(Supply::class);
     }
-
-    //  public function getActiveAttribute($attribute)
-    // {
-    //     return $this->activeOptions()[$attribute];
-    // }
-
-    //  public function activeOptions(){
-    //     return [
-    //         0 => 'Draft',
-    //         1 => 'Passée',
-    //         2 => 'Confirmée',
-    //         3 => 'Livrée',
-    //     ];
-    // }
 
     public function getActiveColorAttribute()
     {
@@ -112,9 +98,9 @@ class Order extends Model
         return $this->delivery_date->format('m/d/Y');
     }
 
-    public function setDeliveryDateForEditingAttribute($val)
+    public function setDeliveryDateForEditingAttribute($value)
     {
-        $this->delivery_date = Carbon::parse($val);
+        $this->delivery_date = Carbon::parse($value);
     }
 
     // public function getAmountForEditingAttribute()

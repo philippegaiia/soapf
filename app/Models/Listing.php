@@ -11,10 +11,11 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded =[];
+    protected $fillable =['ingredient_id','supplier_id', 'code','supplier_ref','name','pkg','unit_weight','organic','fairtrade','cosmos','active','infos'];
 
     protected $attributes =[
         'active' => 1,
+        'pkg' => 1
     ];
 
 public function ingredient()
@@ -41,16 +42,37 @@ public function ingredient()
         return $this->activeOptions()[$attribute];
     }
 
-    //  public function getBioAttribute($attribute){
-    //     return $this->bioOptions()[$attribute];
-    // }
-
     public function activeOptions(){
         return [
             1 => 'Actif',
             0 => 'Inactif',
         ];
     }
+
+    public function getPkgAttribute($attribute){
+        return $this->pkgOptions()[$attribute];
+    }
+
+    public function pkgOptions(){
+        return [
+            1 => 'Bidon',
+            2 => 'Carton',
+            3 => 'Fût',
+            4 => 'Flacon',
+            5 => 'Unitaire',
+            6 => 'Vrac'
+        ];
+    }
+
+
+
+    // public function getOrganicAttribute($attribute){
+    //     return [
+    //         1 => 'Biologique',
+    //         0 => 'Conventionnel',
+    //     ][$this->organic];
+    // }
+
 
     public static function search($search)
     {
@@ -61,12 +83,7 @@ public function ingredient()
                 ;
     }
 
-    //  public function bioOptions(){
-    //     return [
-    //         1 => 'Biologique',
-    //         0 => 'Conventionnel',
-    //     ];
-    // }
+
 
 
 }

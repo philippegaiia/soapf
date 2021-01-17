@@ -23,7 +23,9 @@ class Table extends Component
         'date-min' => null,
         'date-max' => null
     ];
+
     public $suppliers;
+
     public Order $editing;
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -35,13 +37,13 @@ class Table extends Component
             'editing.order_ref' => 'required|max:18',
             'editing.order_date_for_editing' => 'before_or_equal:today',
             'editing.delivery_date_for_editing' => 'after_or_equal:editing.order_date',
-            'editing.confirmation_no' => 'nullable',
-            'editing.invoice_no' => 'nullable',
-            'editing.bl_no' => 'nullable',
+            'editing.confirmation_no' => 'nullable|max:20',
+            'editing.invoice_no' => 'nullable|max:20',
+            'editing.bl_no' => 'nullable|max:20',
             'editing.active' =>'required|in:'.collect(Order::STATUSES)->keys()->implode(','),
-            'editing.infos' => 'nullable',
-            'editing.amount' => 'numeric|max:100000',
-            'editing.freight' => 'numeric|max:100000',
+            'editing.infos' => 'nullable|max:500',
+            'editing.amount' => 'required|numeric|min:0|max:200000',
+            'editing.freight' => 'required|numeric|min:0|max:10000',
         ];
     }
 
@@ -64,7 +66,11 @@ class Table extends Component
 
     public function makeBlankOrder()
     {
-        return Order::make(['order_date' => now(), 'delivery_date' =>now(), 'active' => 0, 'supplier_id' => 1]);
+        return Order::make(['order_date' => now(),
+                            'delivery_date' =>now(),
+                            'active' => 0,
+                            'supplier_id' => 1,
+                            ]);
     }
 
 

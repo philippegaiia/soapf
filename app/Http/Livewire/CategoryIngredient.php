@@ -12,13 +12,23 @@ class CategoryIngredient extends Component
     public $categories;
     public $ingredients;
     public $listing;
+
     public $selectedCategory = NULL;
     public $selectedIngredient = NULL;
 
-    public function mount()
+    public function mount($selectedIngredient = null)
     {
         $this->categories = IngredientCategory::all();
         $this->ingredients = collect();
+        $this->selectedIngredient = $selectedIngredient;
+
+        if (!is_null($selectedIngredient)) {
+            $ingredient = Ingredient::with('ingredientCategory')->find($selectedIngredient);
+            if($ingredient){
+                $this->ingredients = Ingredient::where('ingredient_category_id', $ingredient->ingredient_category_id)->get();
+                $this->selectedCategory = $ingredient->ingredient_category_id;
+            }
+        }
     }
 
     public function render()
@@ -28,6 +38,8 @@ class CategoryIngredient extends Component
 
     public function updatedSelectedCategory($category)
     {
-        $this->ingredients = Ingredient::where('ingredient_category_id', $category)->get();
+        if(!is_null($category)){
+         $this->ingredients = Ingredient::where('ingredient_category_id', $category)->get();
+        }
     }
 }

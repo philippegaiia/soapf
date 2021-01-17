@@ -31,6 +31,7 @@ class MoneyCast implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
+        if(!is_numeric($value)) $value = 0;
         return $value * 100;
     }
 }

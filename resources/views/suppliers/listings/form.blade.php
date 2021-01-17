@@ -24,18 +24,24 @@
 </div>
 
 <!-- Statut -->
-<div class="mt-4">
-    <x-label for="active" :value="__('Statut')" />
-    <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-    <option value="" disabled>Sélectionner une situation</option>
-        @foreach ($listing->activeOptions() as $activeOptionKey => $activeOptionValue)
-            <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $listing->active == $activeOptionValue) ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+<x-input.group for="pkg" label="Unité conditionnement" :error="$errors->first('pkg')">
+    <x-input.select name="pkg" id="pkg">
+        @foreach (App\Models\Listing::PACKAGES as $value => $label)
+            <option value="{{ $value }}">{{ $label }}</option>
         @endforeach
-    </select>
+    </x-input.select>
+</x-input.group>
+
+<!-- Unit weight-->
+<div class="mt-4">
+    <x-label for="unit_weight" :value="__('Poids unitaire')" />
+    <x-input id="name" class="mt-1 w-full" type="number" name="unit_weight" :value="old('unit_weight') ?? $listing->unit_weight" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required  />
+    <x-input-error for="name" class="mt-2" />
 </div>
 
-<!-- organic -->
+
 <div class="flex flex-row mt-4">
+    <!-- organic -->
     <div class="">
         <label for="organic" class="inline-flex items-center">
             <input type="hidden" name="organic" value="0">
@@ -54,8 +60,28 @@
         </label>
         <x-input-error for="fairtrade" class="mt-2" />
     </div>
+
+     <!-- cosmos -->
+    <div class="ml-12">
+        <label for="cosmos" class="inline-flex items-center">
+            <input type="hidden" name="cosmos" value="0">
+            <input id="cosmos" type="checkbox" value="1" {{ $listing->fairtrade || old('cosmos', 0) === 1 ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="cosmos">
+            <span class="ml-2 text-sm text-gray-600">{{ __('Cosmos') }}</span>
+        </label>
+        <x-input-error for="cosmos" class="mt-2" />
+    </div>
 </div>
-<!-- cas -->
+
+<!-- Statut -->
+<div class="mt-4">
+    <x-label for="active" :value="__('Statut')" />
+    <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+    <option value="" disabled>Sélectionner une situation</option>
+        @foreach ($listing->activeOptions() as $activeOptionKey => $activeOptionValue)
+            <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $listing->active == $activeOptionValue) ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+        @endforeach
+    </select>
+</div>
 
 
 <!-- einecs -->

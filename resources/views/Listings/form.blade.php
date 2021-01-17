@@ -1,58 +1,65 @@
 <div>
-    <!-- Supplier Designation of the ingredient-->
-    <div class="mt-4">
-        <x-label for="name" :value="__('Designation')" />
-        <x-input id="name" class="mt-1 w-full" type="text" name="name" :value="old('name') ?? $listing->name" required  />
-        <x-input-error for="name" class="mt-2" />
+    <x-input.group for="supplier_id" label="Fournisseur" :error="$errors->first('supplier_id')">
+        <x-input.select name="supplier_id" id="supplier_id">
+            @foreach ($suppliers as $supplier)
+                <option value="{{ $supplier->id }}" {{ (old('supplier_id') ?? $supplier->id) == $listing->supplier_id ? 'selected' : ''}}>{{ $supplier->name }} - {{ $supplier->code }}</option>
+            @endforeach
+        </x-input.select>
+    </x-input.group>
+
+<!-- livewire component to select categorie and ingredients -->
+    <div>
+    <livewire:category-ingredient :selectedIngredient="$listing->ingredient_id"/>
     </div>
-    {{-- Ingrédient link to the selected category --}}
 
-        <div class="mt-4">
-            <x-label for="ingredient_id" :value="__('Ingrédient')" />
-            <select name="ingredient_id"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            {{-- <option value="" >Sélectionner un ingrédient</option> --}}
-                @foreach ($ingredients as $ingredient)
-                    <option value="{{ $ingredient->id}}" {{ $ingredient->id == $listing->ingredient_id ? 'selected' : '' }}> {{ $ingredient->name }} </option>
-                @endforeach
-            </select>
-            <x-input-error for="ingredient_id" class="mt-2" />
-        </div>
+    <!-- Company internal code -->
+    <x-input.group for="code" label="Code Interne" :error="$errors->first('code')">
+        <x-input.text name="code" id="code" :value="old('code') ?? $listing->code"/>
+    </x-input.group>
 
-    <!-- Internal code -->
-    <div class="mt-4">
-        <x-label for="code" :value="__('Code Interne')" />
-        <x-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code') ?? $listing->code" required />
-        <x-input-error for="code" class="mt-2" />
-    </div class="mt-4">
+    <!-- Supplier ref -->
+     <x-input.group for="supplier_ref" label="Code Fournisseur" :error="$errors->first('supplier_ref')">
+        <x-input.text name="supplier_ref" id="supplier_ref" :value="old('supplier_ref') ?? $listing->supplier_ref"/>
+    </x-input.group>
 
-    <!-- Supplier code or ref -->
-    <div class="mt-4">
-        <x-label for="supplier_ref" :value="__('Code Fournisseur')" />
-        <x-input id="supplier_ref" class="block mt-1 w-full" type="text" name="supplier_ref" :value="old('supplier_ref') ?? $listing->supplier_ref" required  />
-        <x-input-error for="supplier_ref" class="mt-2" />
-    </div class="mt-4">
+    <!-- Supplier designation of the ingredient -->
+    <x-input.group for="name" label="Libellé" :error="$errors->first('name')">
+        <x-input.text name="name" id="name" :value="old('name') ?? $listing->name"/>
+    </x-input.group>
 
     <!-- Statut -->
-    <div class="mt-4">
-        <x-label for="active" :value="__('Statut')" />
-        <select id="active" name="active"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <option value="" disabled>Sélectionner une situation</option>
-            @foreach ($listing->activeOptions() as $activeOptionKey => $activeOptionValue)
-                <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $listing->active == $activeOptionValue) ? 'selected' : '' }}>{{ $activeOptionValue }}</option>
+    <x-input.group for="pkg" label="Unité conditionnement" :error="$errors->first('pkg')">
+        <x-input.select name="pkg" id="pkg">
+            @foreach ($listing->pkgOptions() as $pkgOptionKey => $pkgOptionValue)
+                <option value="{{ $pkgOptionKey }}" {{ (old('pkg') == $pkgOptionValue || $listing->pkg == $pkgOptionValue) ? 'selected' : '' }} >{{ $pkgOptionValue }}</option>
             @endforeach
-        </select>
-    </div>
+        </x-input.select>
+    </x-input.group>
 
-    <!-- organic -->
-    <div class="flex flex-row mt-4">
+    <!-- Unit weight-->
+    <x-input.group for="unit_weight" label="Poids unitaire (kg)" :error="$errors->first('unit_weight')">
+        <x-input.text type="number" name="unit_weight" id="unit_weight" :value="old('unit_weight') ?? $listing->unit_weight" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
+    </x-input.group>
+
+
+    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:border-gray-200 sm:py-3 '">
+        <div class="block text-sm font-semibold leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Certifications
+        </div>
+    <div class="flex justify-start pt-2 col-span-2">
+        <!-- organic -->
         <div class="">
-            <label for="organic" class="inline-flex items-center">
+            <label for="organic" class="inline-flex items-center text-gray-900 font-semibold">
                 <input type="hidden" name="organic" value="0">
                 <input id="organic" type="checkbox" value="1" {{ $listing->organic || old('organic', 0) === 1 ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="organic">
                 <span class="ml-2 text-sm text-gray-600">{{ __('Biologique') }}</span>
             </label>
             <x-input-error for="organic" class="mt-2" />
         </div>
+        {{-- <x-input.group for="organic" label="Biologique" :error="$errors->first('organic')">
+            <input type="hidden" name="organic" value="0" />
+            <x-input.checkbox id="organic"  value="1" {{ $listing->organic || old('organic', 0) === 1 ? 'checked' : '' }}  name="organic"/>
+        </x-input.group> --}}
 
         <!-- fairtrade -->
         <div class="ml-12">
@@ -63,21 +70,40 @@
             </label>
             <x-input-error for="fairtrade" class="mt-2" />
         </div>
+
+        <!-- cosmos -->
+        <div class="ml-12">
+            <label for="cosmos" class="inline-flex items-center">
+                <input type="hidden" name="cosmos" value="0">
+                <input id="cosmos" type="checkbox" value="1" {{ $listing->fairtrade || old('cosmos', 0) === 1 ? 'checked' : '' }} class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="cosmos">
+                <span class="ml-2 text-sm text-gray-600">{{ __('Cosmos') }}</span>
+            </label>
+            <x-input-error for="cosmos" class="mt-2" />
+        </div>
+    </div>
     </div>
 
+    <!-- Statut -->
+    <x-input.group for="active" label="Statut">
+        <x-input.select  name="active" id="active">
+            <option value="" selected>-- Sélectionner une catégorie --</option>
+            @foreach ($listing->activeOptions() as $activeOptionKey => $activeOptionValue)
+                <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $listing->active == $activeOptionValue) ? 'selected' : '' }}> {{ $activeOptionValue }} </option>
+            @endforeach
+        </x-input.select>
+    </x-input.group>
+
     <!-- Infos -->
-    <div class="mt-4">
-        <x-label for="infos" :value="__('Informations')" />
-        <x-textarea id="infos" class="block mt-1 w-full" rows="5" name="infos" :value="old('infos') ?? $listing->infos"/>
-        <x-input-error for="infos" class="mt-2" />
-    </div>
+    <x-input.group for="infos" label="Infos" :error="$errors->first('editing.infos')">
+        <x-input.textarea name="infos" id="infos" />
+    </x-input.group>
 
     <div class="flex items-center justify-end mt-4">
         <x-buttons.secondary-button href="{{ url()->previous() }}">
             {{ __('Annuler') }}
         </x-buttons.secondary-button>
         <x-button class="ml-4">
-            {{ __('Modifier') }}
+            {{ __('Enregister') }}
         </x-button>
     </div>
 </div>

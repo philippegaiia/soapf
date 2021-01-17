@@ -1,27 +1,25 @@
 <div>
     <!-- Categorie -->
-    <div class="mt-4">
-        <x-label  for="category" :value="__('Catégorie Ingrédient')" />
-        <select wire:model="selectedCategory" name="category" class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <option value="" selected>Sélectionner une catégorie</option>
+
+    <x-input.group for="category" label="Catégorie Ingrédient">
+        <x-input.select wire:model="selectedCategory" name="catagory" id="category">
+            <option value="" selected>-- Sélectionner une catégorie --</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id}}" > {{ $category->name }} </option>
             @endforeach
-        </select>
-        {{-- <x-input-error for="listing_category_id" class="mt-2" /> --}}
-    </div>
+        </x-input.select>
+    </x-input.group>
 
     {{-- Ingrédient link to the selected category --}}
     @if (!is_null($selectedCategory))
-        <div class="mt-4">
-            <x-label for="ingredient_id" :value="__('Ingrédient')" />
-            <select name="ingredient_id"  class="mt-1 block w-full py-2 px-3 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-            <option value="" selected>Sélectionner un ingrédient</option>
+
+        <x-input.group for="ingredient_id" label="Ingrédient">
+            <x-input.select wire:model="selectedIngredient" name="ingredient_id" id="ingredient_id">
+                <option value="" selected>-- Sélectionner un ingrédient --</option>
                 @foreach ($ingredients as $ingredient)
-                    <option value="{{ $ingredient->id}}"> {{ $ingredient->name }} </option>
+                    <option value="{{ $ingredient->id}}" > {{ $ingredient->name }} </option>
                 @endforeach
-            </select>
-            <x-input-error for="ingredient_id" class="mt-2" />
-        </div>
+            </x-input.select>
+    </x-input.group>
     @endif
 </div>
