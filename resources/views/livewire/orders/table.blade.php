@@ -17,7 +17,7 @@
                 <div class="w-1/2 pr-2 space-y-4">
                     <x-input.group inline for="filter-status" label="Status">
                         <x-input.select wire:model="filters.status" id="filter-status">
-                            <option value="" disabled>Select Status...</option>
+                            <option value="" disabled>Sélectionner Position...</option>
                             @foreach (App\Models\Order::STATUSES as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach

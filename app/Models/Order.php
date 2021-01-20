@@ -30,8 +30,8 @@ class Order extends Model
     // ];
 
     protected $casts = [
-        'order_date' => 'date:ymd-s',
-        'delivery_date' => 'date:ymd-s',
+        'order_date' => 'date',
+        'delivery_date' => 'date',
         'amount' => MoneyCast::class,
         'freight' => MoneyCast::class,
     ];

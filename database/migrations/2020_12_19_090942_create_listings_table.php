@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateListingsTable extends Migration
 {
@@ -25,11 +26,16 @@ class CreateListingsTable extends Migration
             $table->boolean('organic')->default(true);
             $table->boolean('fairtrade')->default(false);
             $table->boolean('cosmos')->default(false);
+            $table->boolean('cosmecert')->default(false);
             $table->smallInteger('active');
             $table->text('infos')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Artisan::call('db:seed', [
+            '--class' => ListingSeeder::class
+        ]);
     }
 
     /**

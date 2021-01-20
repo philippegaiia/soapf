@@ -39,21 +39,6 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //  $data = request()->validate([
-        //     'supplier_id' => 'required',
-        //     'ingredient_id' => 'required',
-        //     'code' => 'nullable|max:6',
-        //     'supplier_ref' => 'nullable|max:12',
-        //     'name' => 'required',
-        //     'pkg' => 'required',
-        //     'unit_weight' => 'required|numeric',
-        //     'organic' => 'required',
-        //     'fairtrade' => 'required',
-        //     'cosmos' => 'required',
-        //     'active' =>'required',
-        //     'infos' => 'nullable|max:1000',
-        // ]);
-
         $listing = Listing::create($this->validateRequest());
 
         return redirect()->route('listings.show', $listing->id);
@@ -115,13 +100,14 @@ class ListingController extends Controller
            'supplier_id' => 'required',
             'ingredient_id' => 'required',
             'code' => 'nullable|max:6',
-            'supplier_ref' => 'nullable|max:12',
-            'name' => 'required',
+            'supplier_ref' => 'nullable|max:24',
+            'name' => 'required|max:60',
             'pkg' => 'required',
             'unit_weight' => 'required|numeric|max:20000',
             'organic' => 'required',
             'fairtrade' => 'required',
             'cosmos' => 'required',
+            'cosmecert' => 'required',
             'active' =>'required',
             'infos' => 'nullable|max:1000',
         ]);

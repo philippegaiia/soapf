@@ -1,10 +1,10 @@
-<div class="space-y-4 py-4 ">
+<div class="space-y-2 py-4 ">
     <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
-        <div class="w-2/6 mx-1">
-            <input wire:model.debounce.600ms="search" type="text" class="appearance-none block w-full bg-blue-50 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:border-blue-200 focus:bg-white focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" placeholder="Rechercher un listing...">
+        <div class="w-2/6 ml-1 mr-2">
+            <input wire:model.debounce.600ms="search" type="text" class="block w-full bg-white text-gray-700 border border-gray-200 rounded py-2 pr-2 leading-tight focus:ml-3 focus:outline-none focus:border-blue-200 focus:bg-white focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" placeholder="Rechercher un listing...">
         </div>
         <div class="w-1/6 relative mx-2">
-            <select wire:model="sortField" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <select wire:model="sortField" class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                 <option value="name">Désignation</option>
                 <option value="supplier_ref">Ref Fournisseur</option>
                 <option value="code">Code</option>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="w-1/6 relative mx-2">
-            <select wire:model="sortAsc" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white  focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <select wire:model="sortAsc" class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white  focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                 <option value="1">Ascending</option>
                 <option value="0">Descending</option>
             </select>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="w-1/6 relative mx-2">
-            <select wire:model="perPage" class="block appearance-none w-full bg-blue-50 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
+            <select wire:model="perPage" class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                 <option>10</option>
                 <option>25</option>
                 <option>50</option>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="w-1/6 ml-2">
-            <x-buttons.add-button href="{{ route('listings.create') }}" class="">
+            <x-buttons.add-button href="{{ route('listings.create') }}" class="bg-white">
                 {{ __('Nouveau listing') }}
             </x-buttons.add-button>
         </div>
@@ -51,16 +51,16 @@
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="mb-4 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-indigo-50">
                             <tr>
-                                <th scope="col" class="table-head">
-                                    Code
-                                </th>
                                 <th scope="col" class="table-head">
                                     Ref. Fournisseur
                                 </th>
                                 <th scope="col" class="table-head">
                                     Désignation
+                                </th>
+                                <th scope="col" class="table-head">
+                                    PCB
                                 </th>
                                 <th scope="col" class="table-head">
                                     Bio
@@ -76,9 +76,6 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse ($listings as $listing)
                                 <tr class="hover:bg-gray-50">
-                                    <x-tables.table-detail>
-                                        {{ $listing->code }}
-                                    </x-tables.table-detail>
 
                                     <x-tables.table-active>
                                         {{ $listing->supplier_ref }}
@@ -88,8 +85,12 @@
                                         {{ $listing->name }}
                                     </x-tables.table-detail>
 
+                                    <x-tables.table-detail>
+                                        {{ $listing->pkg }} - {{ $listing->unit_weight }}kg
+                                    </x-tables.table-detail>
+
                                     <x-tables.table-detail >
-                                        {{ $listing->organic }}
+                                        {{ $listing->organic ? 'Bio' : '' }}
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail>

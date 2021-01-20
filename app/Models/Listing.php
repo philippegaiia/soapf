@@ -11,14 +11,18 @@ class Listing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable =['ingredient_id','supplier_id', 'code','supplier_ref','name','pkg','unit_weight','organic','fairtrade','cosmos','active','infos'];
+    protected $fillable =['ingredient_id','supplier_id', 'code','supplier_ref','name','pkg','unit_weight','organic','fairtrade','cosmos','cosmecert','active','infos'];
 
     protected $attributes =[
         'active' => 1,
         'pkg' => 1
     ];
 
-public function ingredient()
+     protected $casts = [
+        'organic' => 'boolean'
+    ];
+
+    public function ingredient()
     {
         return $this->belongsTo(Ingredient::class);
     }
@@ -56,11 +60,12 @@ public function ingredient()
     public function pkgOptions(){
         return [
             1 => 'Bidon',
-            2 => 'Carton',
-            3 => 'Fût',
-            4 => 'Flacon',
-            5 => 'Unitaire',
-            6 => 'Vrac'
+            2 => 'Seau',
+            3 => 'Carton',
+            4 => 'Fût',
+            5 => 'Flacon',
+            6 => 'Unitaire',
+            7 => 'Vrac'
         ];
     }
 

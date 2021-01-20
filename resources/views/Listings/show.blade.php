@@ -10,7 +10,7 @@
             <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
                 <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
 
-                    <x-buttons.add-button href="{{ route('listings.create', $listing->supplier->id) }}" class="block">
+                    <x-buttons.add-button href="{{ route('listings.create')}}" class="block">
                         {{ __('Ajouter un autre listing') }}
                     </x-buttons.add-button>
 
