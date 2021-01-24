@@ -37,7 +37,7 @@ class Show extends Component
 
     public function mount()
     {
-        // $this->order = Order::find($this->orderId);
+        //$this->order = Order::find($this->orderId);
         $this->suppliers = Supplier::all();
         $this->editing = $this->makeBlankOrder();
     }
@@ -81,11 +81,12 @@ class Show extends Component
     public function render()
     {
         // if($this->editing->order_id === $this->orderId) {
-          return view('livewire.orders.show', [ $this->order = Order::find($this->orderId)]);
+        return view('livewire.orders.show'
+        , [ $this->order = Order::find($this->orderId)]
+        );
         // }
         // else {
         //     $this->order = $this->editing
         // }
-
     }
 }

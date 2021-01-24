@@ -77,20 +77,22 @@
                             @forelse ($listings as $listing)
                                 <tr class="hover:bg-gray-50">
 
-                                    <x-tables.table-active>
+                                    <x-tables.table-detail>
                                         {{ $listing->supplier_ref }}
-                                    </x-tables.table-active>
+                                    </x-tables.table-detail>
 
                                     <x-tables.table-detail>
                                         {{ $listing->name }}
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail>
-                                        {{ $listing->pkg }} - {{ $listing->unit_weight }}kg
+                                        {{ $listing->pkg }} - {{ $listing->unit_weight }} @if ($listing->pkg != 'Unitaire') kg @endif
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail >
-                                        {{ $listing->organic ? 'Bio' : '' }}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $listing->organic_color }}-100 text-{{ $listing->organic_color }}-800 capitalize">
+                                            {{ $listing->organic ? 'Bio' : 'Conv' }}
+                                        </span>
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail>

@@ -9,7 +9,7 @@
 
 <!-- livewire component to select categorie and ingredients -->
     <div>
-    <livewire:category-ingredient :selectedIngredient="$listing->ingredient_id"/>
+        <livewire:category-ingredient :selectedIngredient="$listing->ingredient_id"/>
     </div>
 
     <!-- Company internal code -->
@@ -56,10 +56,6 @@
                 </label>
                 <x-input-error for="organic" class="mt-2" />
             </div>
-            {{-- <x-input.group for="organic" label="Biologique" :error="$errors->first('organic')">
-                <input type="hidden" name="organic" value="0" />
-                <x-input.checkbox id="organic"  value="1" {{ $listing->organic || old('organic', 0) === 1 ? 'checked' : '' }}  name="organic"/>
-            </x-input.group> --}}
 
             <!-- fairtrade -->
             <div class="ml-8">

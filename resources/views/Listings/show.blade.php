@@ -67,6 +67,15 @@
                             {{ $listing->ingredient->name}}
                             </dd>
                         </div>
+                         <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="description-dt">
+                            Packaging - Poids unitaire
+                            </dt>
+                            <dd class="description-dd">
+                            {{ $listing->pkg}} - {{ $listing->unit_weight }} @if ($listing->pkg != 'Unitaire') kg @endif
+                            </dd>
+                        </div>
+
                         <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Type
@@ -75,8 +84,15 @@
                             {{ $listing->organic}}
                             </dd>
                         </div>
-
-                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-gray px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="description-dt">
+                            Statut
+                            </dt>
+                            <dd class="description-dd">
+                            {{ $listing->active }}
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Informations supplémentaires
                             </dt>
@@ -85,14 +101,7 @@
                             </dd>
                         </div>
 
-                        <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="description-dt">
-                            Statut
-                            </dt>
-                            <dd class="description-dd">
-                            {{ $listing->active }}
-                            </dd>
-                        </div>
+
                     {{-- <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
                         Attachments

@@ -6,8 +6,11 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\SupplierOrderController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\SupplierListingController;
+use App\Http\Controllers\ProductCollectionController;
 use App\Http\Controllers\IngredientCategoryController;
+use App\Http\Controllers\ProductSubcategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,11 @@ Route::resource('suppliers.listings', SupplierListingController::class)->middlew
 Route::resource('listings', ListingController::class)->middleware('auth');
 Route::resource('suppliers.orders', SupplierOrderController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
+Route::resource('product_categories', ProductCategoryController::class)->middleware('auth');
+Route::resource('product_subcategories', ProductSubcategoryController::class)->middleware('auth');
+Route::resource('product_collections', ProductCollectionController::class)->middleware('auth');
+
+// Route::get('product_categories', App\Http\Livewire\ProductCategories\Index::class);
 
 
 

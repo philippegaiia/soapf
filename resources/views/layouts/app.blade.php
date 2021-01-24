@@ -47,7 +47,9 @@
                 {{ $slot }}
             </main>
         </div>
+
         @livewireScripts
         <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
     </body>
 </html>

@@ -18,7 +18,7 @@ class Listing extends Model
         'pkg' => 1
     ];
 
-     protected $casts = [
+    protected $casts = [
         'organic' => 'boolean'
     ];
 
@@ -67,6 +67,15 @@ class Listing extends Model
             6 => 'Unitaire',
             7 => 'Vrac'
         ];
+    }
+
+    public function getOrganicColorAttribute()
+    {
+        return [
+            0 => 'yellow',
+            1 => 'green',
+
+        ][$this->organic];
     }
 
 
