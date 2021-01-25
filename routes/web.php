@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\SupplierOrderController;
@@ -42,9 +43,10 @@ Route::resource('suppliers.listings', SupplierListingController::class)->middlew
 Route::resource('listings', ListingController::class)->middleware('auth');
 Route::resource('suppliers.orders', SupplierOrderController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
-Route::resource('product_categories', ProductCategoryController::class)->middleware('auth');
-Route::resource('product_subcategories', ProductSubcategoryController::class)->middleware('auth');
-Route::resource('product_collections', ProductCollectionController::class)->middleware('auth');
+Route::resource('product_categories', ProductCategoryController::class)->only(['index'])->middleware('auth');
+Route::resource('product_subcategories', ProductSubcategoryController::class)->only(['index'])->middleware('auth');
+Route::resource('product_collections', ProductCollectionController::class)->only(['index'])->middleware('auth');
+Route::resource('products', ProductController::class)->middleware('auth');
 
 // Route::get('product_categories', App\Http\Livewire\ProductCategories\Index::class);
 

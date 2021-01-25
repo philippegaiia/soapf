@@ -87,18 +87,18 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            {{-- <x-dropdown-link :href="route('products.index')">
+                            <x-dropdown-link :href="route('products.index')">
                                     {{ __('Produits') }}
-                            </x-dropdown-link> --}}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('product_categories.index')">
                                     {{ __('Catégories') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('product_subcategories.index')">
                                     {{ __('Sous-catégories') }}
                             </x-dropdown-link>
-                            {{-- <x-dropdown-link :href="route('listings.index')">
+                            <x-dropdown-link :href="route('product_collections.index')">
                                     {{ __('Collections') }}
-                            </x-dropdown-link> --}}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

@@ -166,7 +166,7 @@
 
                     <!-- Order confirmation number -->
                     <x-input.group for="confirmation_no" label="No Confirmation" :error="$errors->first('editing.confirmation_no')">
-                        <x-input.text wire:model="editing.confirmation_no" id="bl_no" />
+                        <x-input.text wire:model="editing.confirmation_no" id="confirmation_no" />
                     </x-input.group>
 
                     <!-- BL  number -->
@@ -195,15 +195,6 @@
                     <x-input.group  for="freight" label="Freight" :error="$errors->first('editing.freight')">
                         <x-input.money wire:model.lazy="editing.freight" id="freight" />
                     </x-input.group>
-
-                    <!-- Infos -->
-                    {{-- <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start mt-3">
-                        <x-label for="infos" :value="__('Informations')" />
-                        <div class="col-span-2">
-                            <x-textarea id="infos" class="block mt-1 w-full" rows="5" name="infos" :value="old('infos') ?? $order->infos"/>
-                            <x-input-error for="infos" class="mt-2" />
-                        </div>
-                    </div> --}}
 
                     <x-input.group for="infos" label="Infos" :error="$errors->first('editing.infos')">
                         <x-input.textarea wire:model="editing.infos" id="infos" />

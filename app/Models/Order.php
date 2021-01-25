@@ -103,15 +103,4 @@ class Order extends Model
         $this->delivery_date = Carbon::parse($value);
     }
 
-    // public function getAmountForEditingAttribute()
-    // {
-    //     return $this->amount->format('m/d/Y');
-    // }
-
-    // public function setAmountForEditingAttribute($amt)
-    // {
-    //     $this->amount = $amt * 100;
-    // }
-
-
 }

@@ -68,6 +68,9 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="table-head">
+                                        Id
+                                    </th>
+                                    <th scope="col" class="table-head">
                                         Code
                                     </th>
                                     <th scope="col" class="table-head">
@@ -91,10 +94,14 @@
                                 @forelse ($ingredients as $ingredient)
                                     <tr>
                                         <x-tables.table-detail>
+                                            {{ $ingredient->id }}
+                                        </x-tables.table-detail>
+
+                                        <x-tables.table-detail>
                                             {{ $ingredient->code }}
                                         </x-tables.table-detail>
 
-                                            <x-tables.table-detail>
+                                        <x-tables.table-detail>
                                             {{ $ingredient->name }}
                                         </x-tables.table-detail>
 
@@ -105,8 +112,6 @@
                                         <x-tables.table-active class="{{ $ingredient->active == 'Actif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                             {{ $ingredient->active }}
                                         </x-tables.table-active>
-
-
 
                                         <x-tables.table-detail>
                                                 @if (isset($ingredient->ingredientCategory->name ))
@@ -122,12 +127,12 @@
                                             <x-buttons.edit-button-sm href="{{ route('ingredients.edit', ['ingredient' => $ingredient] )}}" class="ml-4">
                                             </x-buttons.edit-button-sm>
 
-                                            <form action="{{ route('ingredients.destroy', ['ingredient' => $ingredient] )}}" method="POST">
+                                            {{-- <form action="{{ route('ingredients.destroy', ['ingredient' => $ingredient] )}}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain de supprimer {{ $ingredient->name }}?')">
                                                 </x-buttons.delete-button-sm>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                     @empty

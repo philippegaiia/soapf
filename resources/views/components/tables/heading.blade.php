@@ -4,9 +4,7 @@
     'multiColumn' => null,
 ])
 
-<th
-    {{ $attributes->merge(['class' => 'px-4 py-3 bg-gray-50'])->only('class') }}
->
+<th {{ $attributes->merge(['class' => 'px-4 py-3 bg-gray-50'])->only('class') }} >
     @unless ($sortable)
         <span class="text-left text-xs leading-4 font-medium text-gray-gray-500 uppercase tracking-wider">{{ $slot }}</span>
     @else

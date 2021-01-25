@@ -42,7 +42,7 @@ class IngredientController extends Controller
     public function store(Request $request, Ingredient $ingredient)
     {
 
-        $countIngredientsInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->count();
+        $countIngredientsInCategory = Ingredient::withTrashed()->where('ingredient_category_id', $request->ingredient_category_id)->count();
 
         if ($countIngredientsInCategory > 0){
             $lastCodeInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->firstOrFail()->id;
@@ -54,10 +54,22 @@ class IngredientController extends Controller
             $code = $codeCategory->code;
         }
 
+        // $lastIngredient = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->count();
+
+        // if ($countIngredientsInCategory > 0){
+        //     $lastCodeInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->firstOrFail()->id;
+        //     $codeCategory = Ingredient::findOrFail($lastCodeInCategory);
+        //     $code = $codeCategory->ingredientCategory->code;
+        // } else {
+        //     $categoryId = $request->ingredient_category_id;
+        //     $codeCategory = IngredientCategory::findOrFail($categoryId);
+        //     $code = $codeCategory->code;
+        // }
+
         $data = request()->validate([
             // 'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
             'name' => 'required|max:60',
-            'name_en' => 'max:60',
+            'name_en' => 'required|max:60',
             'inci' => 'required|max:60',
             'inci_koh' => 'max:60',
             'inci_naoh' => 'max:60',
@@ -109,12 +121,29 @@ class IngredientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Ingredient $ingredient)
+    public function update(Request $request, Ingredient $ingredient)
     {
+        // dd($request);
+
+        if($ingredient->ingredient_category_id != $request->ingredient_category_id) {
+
+            $countIngredientsInCategory = Ingredient::withTrashed()->where('ingredient_category_id', $request->ingredient_category_id)->count();
+
+            if ($countIngredientsInCategory > 0){
+                $lastCodeInCategory = Ingredient::where('ingredient_category_id', $request->ingredient_category_id)->firstOrFail()->id;
+                $codeCategory = Ingredient::findOrFail($lastCodeInCategory);
+                $code = $codeCategory->ingredientCategory->code;
+            } else {
+                $categoryId = $request->ingredient_category_id;
+                $codeCategory = IngredientCategory::findOrFail($categoryId);
+                $code = $codeCategory->code;
+            }
+        }
+
         $data = request()->validate([
-            // 'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
+            //'code' => "required|min:2|max:6|unique:ingredients,code,$ingredient->id",
             'name' => 'required|max:60',
-            'name_en' => 'max:60',
+            'name_en' => 'required|max:60',
             'inci' => 'required|max:60',
             'inci_koh' => 'max:60',
             'inci_naoh' => 'max:60',
@@ -125,6 +154,10 @@ class IngredientController extends Controller
             'infos' => 'max:1000',
             'active' => 'required'
         ]);
+
+        if($ingredient->ingredient_category_id != $request->ingredient_category_id){
+            $data['code'] = $code . ($countIngredientsInCategory + 1);
+        }
 
         $ingredient->update($data);
 

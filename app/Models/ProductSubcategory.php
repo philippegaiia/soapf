@@ -15,6 +15,7 @@ class ProductSubcategory extends Model
         'product_category_id',
         'code',
         'name',
+        'hs_code',
         'active'
     ];
 

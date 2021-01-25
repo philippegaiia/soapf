@@ -17,6 +17,7 @@ class Subcategories extends Component
         'category.product_category_id' => 'required',
         'category.code' => 'max:10',
         'category.name' => 'required',
+        'category.hs_code' => 'required|max:20',
         'category.active' => 'required',
     ];
 

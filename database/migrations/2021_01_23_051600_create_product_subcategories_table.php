@@ -19,6 +19,7 @@ class CreateProductSubcategoriesTable extends Migration
             $table->foreignId('product_category_id')->constrained();
             $table->string('code')->nullable();
             $table->string('name');
+            $table->string('hs_code')->nullable();
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();

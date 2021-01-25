@@ -14,7 +14,7 @@
     @if (!is_null($selectedCategory))
 
         <x-input.group for="product_category_id" label="Sous-catégorie">
-            <x-input.select wire:model="selectedSubcategory" name="product_category_id" id="product_category_id">
+            <x-input.select wire:model="selectedSubcategory"  id="product_category_id">
                 <option value="" selected>-- Sélectionner un ingrédient --</option>
                 @foreach ($subcategories as $subcategory)
                     <option value="{{ $subcategory->id}}" > {{ $subcategory->name }} </option>

@@ -84,6 +84,11 @@
                         <x-input.text wire:model="category.name" id="name" />
                     </x-input.group>
 
+                     <!-- CUsqtom tariff code HS -->
+                    <x-input.group for="hs_code" label="Code douanier HS" :error="$errors->first('category.hs_code')">
+                        <x-input.text wire:model="category.hs_code" id="hs_code" />
+                    </x-input.group>
+
                     <!-- category ref -->
                     <x-input.group for="active" label="Catégorie active" :error="$errors->first('category.active')">
                         <x-input.checkbox wire:model="category.active" id="active" />

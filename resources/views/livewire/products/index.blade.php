@@ -1,119 +1,232 @@
+
 <div class="py-4 space-y-4 ">
     <div class="flex justify-between">
+
+        <div class="w-2/4 flex space-x-4">
+            <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
+        </div>
         <div>
             <x-buttons.primary wire:click="create" ><x-icons.plus />Nouveau produit</x-buttons.primary>
         </div>
     </div>
-        {{-- subcategories table --}}
+
+    <!-- Advanced Search -->
+        {{-- <div>
+            @if ($showFilters)
+            <div class="bg-gray-200 p-4 rounded shadow-inner flex ">
+                <div class="w-1/2 pr-2 space-y-4">
+                    <x-input.group inline for="filter-status" label="Status">
+                        <x-input.select wire:model="filters.status" id="filter-status">
+                            <option value="" disabled>Sélectionner Position...</option>
+                            @foreach (App\Models\Order::STATUSES as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-input.select>
+                    </x-input.group>
+
+                    <x-input.group inline for="filter-amount-min" label="Minimum Amount">
+                        <x-input.money wire:model.lazy="filters.amount-min" id="filter-amount-min" />
+                    </x-input.group>
+
+                    <x-input.group inline for="filter-amount-max" label="Maximum Amount">
+                        <x-input.money wire:model.lazy="filters.amount-max" id="filter-amount-max" />
+                    </x-input.group>
+                </div>
+
+                <div class="w-1/2 pl-2 space-y-4">
+                    <x-input.group inline for="filter-date-min" label="Minimum Date">
+                        <x-input.date wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
+                    </x-input.group>
+
+                    <x-input.group inline for="filter-date-max" label="Maximum Date">
+                        <x-input.date wire:model="filters.date-max" id="filter-date-max" placeholder="MM/DD/YYYY" />
+                    </x-input.group>
+                    <div class="absolute right-0 bottom-0 p-4">
+                        <x-buttons.link wire:click="resetFilters" >Reset...</x-buttons.link>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div> --}}
+
+
+        {{-- Orders table --}}
     <div class="flex-col space-y-4">
 
         <x-tables.table>
 
             <x-slot name="head">
-                <x-tables.heading class="text-left" >Code</x-tables.heading>
-                <x-tables.heading class="text-left" >Code</x-tables.heading>
-                <x-tables.heading class="text-left" >Name</x-tables.heading>
-                <x-tables.heading class="text-left" >Catégorie</x-tables.heading>
-                <x-tables.heading class="text-left" >Statut</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('code')" :direction="$sortField === 'code' ? $sortDirection : null">Code</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('product_subcategory_id')" :direction="$sortField === 'product_subcategory_id' ? $sortDirection : null">Category</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('product_collection_id')" :direction="$sortField === 'product_collection_id' ? $sortDirection : null">Collection</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('launch_date')" :direction="$sortField === 'launch_date' ? $sortDirection : null">Date lancement</x-tables.heading>
+
+                <x-tables.heading sortable wire:click="sortBy('active')" :direction="$sortField === 'active' ? $sortDirection : null">Statut</x-tables.heading>
+
                 <x-tables.heading/>
+
             </x-slot>
 
             <x-slot name="body">
 
-                @forelse ($categories as $category)
+                @forelse ($products as $product)
 
                 <x-tables.row wire:loading.class.delay="opacity-50">
 
-                    <x-tables.cell>{{$category->id}}</x-tables.cell>
-
-                    <x-tables.cell>{{$category->code}}</x-tables.cell>
-
-                    <x-tables.cell>{{$category->name}}</x-tables.cell>
-
-                    <x-tables.cell>{{$category->productCategory->name}}</x-tables.cell>
-
+                    <x-tables.cell>{{$product->code}}</x-tables.cell>
+                    <x-tables.cell>{{$product->name}}</x-tables.cell>
+                    <x-tables.cell>{{$product->productSubcategory->name}}</x-tables.cell>
+                    <x-tables.cell>{{$product->productCollection->name}}</x-tables.cell>
+                    <x-tables.cell>{{$product->launch_date_for_humans}}</x-tables.cell>
                     <x-tables.cell>
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $category->active_color }}-100 text-{{ $category->active_color }}-800 capitalize">
-                            {{$category->active ? 'Active' : 'Inactive'}}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $product->active_color }}-100 text-{{ $product->active_color }}-800 capitalize">
+                            {{$product->active_name}}
                         </span>
                     </x-tables.cell>
-
                      <x-tables.cell>
-
-                        <x-buttons.edit-button-modal-sm wire:click="edit({{ $category->id }})"></x-buttons.edit-button-modal-sm>
-
-                        {{-- <x-buttons.show-button-sm href="{{ route('categorys.show', ['category' => $category]) }}" class="ml-2"></x-buttons.show-button-sm> --}}
-
+                        <x-buttons.edit-button-modal-sm wire:click="edit({{ $product->id }})"></x-buttons.edit-button-modal-sm>
+                        {{-- <x-buttons.show-button-sm href="{{ route('products.show', ['product' => $product]) }}" class="ml-2"></x-buttons.show-button-sm> --}}
                     </x-tables.cell>
+
                 </x-tables.row>
+
                 @empty
                     <x-tables.row >
                         <x-tables.cell colspan="8">
                             <div class="flex justify-center items-center">
-                                <span class="py-8 text-gray-400 font-medium text-xl">Aucune sous-catégorie produit trouvée</span>
+                                <span class="py-8 text-gray-400 font-medium text-xl">Aucun produit trouvé</span>
                             </div>
                         </x-tables.cell>
                     </x-tables.row>
                 @endforelse
+
             </x-slot>
+
         </x-tables.table>
+
+        <div class="">
+            {{ $products->links() }}
+        </div>
+
     </div>
+
 {{-- Modal for edit --}}
     <div >
         <form wire:submit.prevent="save">
-            <x-dialog-modal wire:model.defer="showModal" >
+            <x-dialog-modal wire:model.defer="showEditModal" >
 
-                <!-- livewire component to select subcategory from product category -->
-                <div>
-                    <livewire:category-ingredient :selectedIngredient="$listing->ingredient_id"/>
-                </div>
-
-
-                <x-slot name="title">Categorie Produit</x-slot>
+                <x-slot name="title">Mettre à Jour l'approvisionnement</x-slot>
 
                 <x-slot name="content">
-                    <!-- main category select -->
-                    <x-input.group for="product_category_id" label="Statut" :error="$errors->first('category.product_category_id')">
-                        <x-input.select wire:model="category.product_category_id" id="product_category_id" name="category.product_category_id">
-                            @foreach ($mainCategories as $mainCategory)
-                                <option value="{{ $mainCategory->id }}">{{ $mainCategory->name }}</option>
+                     <!-- livewire component to select product_subcategory  from product_category -->
+                    {{-- <div>
+                        <livewire:products.add-category
+                        :selectedSubcategory="$product->product_subcategory_id"
+                        />
+                    </div> --}}
+                    <!-- Collection -->
+                    <x-input.group for="product_subcategory_id" label="Catégorie" :error="$errors->first('editing.product_subcategory_id')">
+                        <x-input.select wire:model="editing.product_subcategory_id" id="product_subcategory_id">
+                            @foreach ($subcategories as $subcategory)
+                                <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                            @endforeach
+                        </x-input.select>
+                    </x-input.group>
+                    <!-- Collection -->
+                    <x-input.group for="product_collection_id" label="Collection" :error="$errors->first('editing.product_collection_id')">
+                        <x-input.select wire:model="editing.product_collection_id" id="product_collection_id">
+                            @foreach ($collections as $collection)
+                                <option value="{{ $collection->id }}">{{ $collection->name }}</option>
                             @endforeach
                         </x-input.select>
                     </x-input.group>
 
-                    <!-- sub- category code -->
-                    <x-input.group for="code" label="Code" :error="$errors->first('category.code')">
-                        <x-input.text wire:model="category.code" id="code" />
+                    <!-- Product code -->
+                    <x-input.group for="code" label="Code Produit" :error="$errors->first('editing.code')">
+                        <x-input.text wire:model="editing.code" id="code" />
                     </x-input.group>
 
-                    <!-- sub-category name -->
-                    <x-input.group for="name" label="Nom catégorie" :error="$errors->first('category.name')">
-                        <x-input.text wire:model="category.name" id="name" />
+                    <!-- Product Name -->
+                    <x-input.group for="name" label="Désignation" :error="$errors->first('editing.name')">
+                        <x-input.text wire:model="editing.name" id="name" />
                     </x-input.group>
 
-                    <!-- category ref -->
-                    <x-input.group for="active" label="Catégorie active" :error="$errors->first('category.active')">
-                        <x-input.checkbox wire:model="category.active" id="active" />
+                    <!-- Launched date -->
+                    <x-input.group for="launch_date_for_editing" label="Date de lancement" :error="$errors->first('editing.launch_date_for_editing')">
+                        <x-input.date wire:model="editing.launch_date_for_editing" id="launch_date_for_editing" />
+                    </x-input.group>
+
+                    <!-- contains essential oils -->
+                    <x-input.group for="essential_oils" label="Contient huiles essentielles" :error="$errors->first('editing.essential_oils')">
+                        <x-input.checkbox wire:model="editing.essential_oils" id="essential_oils" />
+                    </x-input.group>
+
+                    <!-- contains vegetable extract -->
+                    <x-input.group for="extracts" label="Contient extraits végétaux" :error="$errors->first('editing.extracts')">
+                        <x-input.checkbox wire:model="editing.extracts" id="extracts" />
+                    </x-input.group>
+
+                     <!-- net weight-->
+                    <x-input.group for="net_weight" label="Poids net" :error="$errors->first('net_weight')">
+                        <x-input.text type="text" wire:model="editing.net_weight" id="net_weight" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
+                    </x-input.group>
+
+                     <!-- raw weight-->
+                    <x-input.group for="gross_weight" label="Poids brut" :error="$errors->first('gross_weight')">
+                        <x-input.text type="text" wire:model="editing.gross_weight" id="gross_weight" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
+                    </x-input.group>
+
+                    <!--  ean13 code -->
+                    <x-input.group for="ean_code" label="Code EAN13" :error="$errors->first('editing.ean_code')">
+                        <x-input.text wire:model="editing.ean_code" id="ean_code" />
+                    </x-input.group>
+
+                    <!-- internal woocommerce code-->
+                    <x-input.group for="wp_code" label="Code woocommerce" :error="$errors->first('editing.wp_code')">
+                        <x-input.text wire:model="editing.wp_code" id="wp_code" />
+                    </x-input.group>
+
+                    <!-- internal woocommerce code-->
+                    {{-- <x-input.group  for="amount" label="Montant HT" :error="$errors->first('editing.amount')">
+                        <x-input.money wire:model.lazy="editing.amount" id="amount" />
+                    </x-input.group> --}}
+
+                    <!-- Statut -->
+                    <x-input.group for="active" label="Statut" :error="$errors->first('editing.active')">
+                        <x-input.select wire:model="editing.active" id="active">
+                            @foreach (App\Models\Product::STATUSES as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-input.select>
+                    </x-input.group>
+
+                    <x-input.group for="infos" label="Infos" :error="$errors->first('editing.infos')">
+                        <x-input.textarea wire:model="editing.infos" id="infos" />
                     </x-input.group>
 
                 </x-slot>
+                    <x-slot name="footer">
+                        <x-secondary-button
+                        wire:click="$toggle('showEditModal')"
+                        wire:loading.attr="disabled" >
+                            {{ __('Annuler') }}
+                        </x-secondary-button>
 
-                <x-slot name="footer">
-                    <x-secondary-button
-                    wire:click="close"
-                    wire:loading.attr="disabled" >
-                        {{ __('Annuler') }}
-                    </x-secondary-button>
-
-                    <x-button class="ml-2" wire:loading.attr="disabled">
-                        {{ __('Save') }}
-                    </x-button>
-                </x-slot>
-
+                        <x-button class="ml-2" wire:loading.attr="disabled">
+                            {{ __('Save') }}
+                        </x-button>
+                    </x-slot>
             </x-dialog-modal>
         </form>
     </div>
 </div>
+
 
 
 
