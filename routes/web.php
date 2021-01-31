@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
@@ -47,6 +48,7 @@ Route::resource('product_categories', ProductCategoryController::class)->only(['
 Route::resource('product_subcategories', ProductSubcategoryController::class)->only(['index'])->middleware('auth');
 Route::resource('product_collections', ProductCollectionController::class)->only(['index'])->middleware('auth');
 Route::resource('products', ProductController::class)->middleware('auth');
+Route::resource('formulas', FormulaController::class)->middleware('auth');
 
 // Route::get('product_categories', App\Http\Livewire\ProductCategories\Index::class);
 

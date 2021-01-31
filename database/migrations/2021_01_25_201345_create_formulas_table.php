@@ -15,6 +15,13 @@ class CreateFormulasTable extends Migration
     {
         Schema::create('formulas', function (Blueprint $table) {
             $table->id();
+            $table->string('code');
+            $table->string('ref_dip');
+            $table->string('name');
+            $table->date('start_date');
+            $table->text('infos')->nullable();
+            $table->smallInteger('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

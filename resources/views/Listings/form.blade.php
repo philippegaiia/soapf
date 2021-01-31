@@ -92,7 +92,7 @@
     <!-- Statut -->
     <x-input.group for="active" label="Statut">
         <x-input.select  name="active" id="active">
-            <option value="" selected>-- Sélectionner une catégorie --</option>
+            <option value="" selected>-- Sélectionner un statut --</option>
             @foreach ($listing->activeOptions() as $activeOptionKey => $activeOptionValue)
                 <option value="{{ $activeOptionKey }}" {{ (old('active') == $activeOptionValue || $listing->active == $activeOptionValue) ? 'selected' : '' }}> {{ $activeOptionValue }} </option>
             @endforeach
@@ -100,8 +100,8 @@
     </x-input.group>
 
     <!-- Infos -->
-    <x-input.group for="infos" label="Infos" :error="$errors->first('editing.infos')">
-        <x-input.textarea name="infos" id="infos" />
+    <x-input.group for="infos" label="Infos" :error="$errors->first('infos')" >
+        <x-textarea name="infos" id="infos" row="2" class="w-full">{{ old('infos') ?? $listing->infos }}</x-textarea>
     </x-input.group>
 
     <div class="flex items-center justify-end mt-4">

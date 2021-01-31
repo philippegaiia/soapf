@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Formula;
 use Illuminate\Http\Request;
 
 class FormulaController extends Controller
@@ -13,7 +15,7 @@ class FormulaController extends Controller
      */
     public function index()
     {
-        //
+        return view('formulas.index');
     }
 
     /**
@@ -23,7 +25,10 @@ class FormulaController extends Controller
      */
     public function create()
     {
-        //
+        $formula = new Formula();
+        $formula->start_date = now();
+        // dd($formula);
+        return view('formulas.create', compact('formula'));
     }
 
     /**
@@ -34,7 +39,8 @@ class FormulaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formula = Formula::create($this->validateRequest());
+        return redirect()->route('formulas.index', $formula->id)->with('message', 'Formule créee avec succès');
     }
 
     /**
@@ -43,9 +49,9 @@ class FormulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Formula $formula)
     {
-        //
+        return view('formulas.show', compact('formula'));
     }
 
     /**
@@ -56,7 +62,8 @@ class FormulaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $formula = Formula::findOrFail($id);
+        return view('formulas.edit', compact('formula'));
     }
 
     /**
@@ -66,9 +73,12 @@ class FormulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        // $formula->update($this->validateRequest());
+        $formula = Formula::findOrFail($id);
+        $formula->update($this->validateRequest());
+        return redirect()->route('formulas.show', $formula->id)->with('message', 'La formule '.$formula->name.' a été modifiée');
     }
 
     /**
@@ -77,8 +87,22 @@ class FormulaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Formula $formula)
     {
-        //
+         $formula->delete();
+
+        return redirect('formulas')->with('message' , 'La formule '.$formula->name.' a été supprimée avec succès');
+    }
+
+     private function validateRequest(){
+
+        return request()->validate([
+            'code' => 'required|max:15',
+            'ref_dip' => 'required|max:15',
+            'name' => 'required|max:60',
+            'start_date_for_editing' => 'date|required',
+            'active' =>'required',
+            'infos' => 'nullable|max:1000',
+        ]);
     }
 }

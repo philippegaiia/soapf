@@ -97,7 +97,7 @@ class ListingController extends Controller
     private function validateRequest(){
 
         return request()->validate([
-           'supplier_id' => 'required',
+            'supplier_id' => 'required',
             'ingredient_id' => 'required',
             'code' => 'nullable|max:6',
             'supplier_ref' => 'nullable|max:24',

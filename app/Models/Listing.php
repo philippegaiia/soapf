@@ -19,7 +19,10 @@ class Listing extends Model
     ];
 
     protected $casts = [
-        'organic' => 'boolean'
+        'organic' => 'boolean',
+        'cosmos' => 'boolean',
+        'cosmecert' => 'boolean',
+        'fairtrade' => 'boolean'
     ];
 
     public function ingredient()
@@ -96,8 +99,5 @@ class Listing extends Model
                 ->orWhere('code', 'like', '%'.$search.'%')
                 ;
     }
-
-
-
 
 }

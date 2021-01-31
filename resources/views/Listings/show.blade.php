@@ -6,11 +6,11 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
+        {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"> --}}
+            {{-- <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200"> --}}
                 <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
 
-                    <x-buttons.add-button href="{{ route('listings.create')}}" class="block">
+                    <x-buttons.add-button href="{{ route('listings.create')}}" class="block bg-white">
                         {{ __('Ajouter un autre listing') }}
                     </x-buttons.add-button>
 
@@ -53,10 +53,10 @@
                         </div>
                         <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
-                            Désignation
+                            Désignation / inci
                             </dt>
                             <dd class="description-dd">
-                            {{ $listing->name }}
+                            {{ $listing->name }} / {{ $listing->ingredient->inci }}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -76,23 +76,27 @@
                             </dd>
                         </div>
 
-                        <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Type
                             </dt>
                             <dd class="description-dd">
-                            {{ $listing->organic}}
+                            {{ $listing->organic ? 'bio' : 'conv'}}
+                            {{ $listing->cosmos ? ' / cosmos' : ''}}
+                            {{ $listing->cosmecert ? ' / cosmecert' : ''}}
+                            {{ $listing->fairtrade ? 'fairtrade' : ''}}
                             </dd>
+
                         </div>
-                        <div class="bg-gray px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Statut
                             </dt>
                             <dd class="description-dd">
-                            {{ $listing->active }}
+                            {{ $listing->active  }}
                             </dd>
                         </div>
-                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="description-dt">
                             Informations supplémentaires
                             </dt>
@@ -145,8 +149,8 @@
                     </div> --}}
                     </dl>
                 </div>
-            </div>
-        </div>
+            {{-- </div> --}}
+        {{-- </div> --}}
     </div>
 </div>
 </div>

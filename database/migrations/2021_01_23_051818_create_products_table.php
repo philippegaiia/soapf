@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('product_collection_id')->constrained();
             $table->string('code');
             $table->string('name');
+            $table->string('brand');
             $table->date('launch_date');
             $table->boolean('essential_oils');
             $table->boolean('extracts');
@@ -33,9 +34,9 @@ class CreateProductsTable extends Migration
             $table->timestamps();
         });
 
-        // Artisan::call('db:seed', [
-        //     '--class' => ProductSeeder::class
-        // ]);
+        Artisan::call('db:seed', [
+            '--class' => ProductSeeder::class
+        ]);
     }
 
     /**

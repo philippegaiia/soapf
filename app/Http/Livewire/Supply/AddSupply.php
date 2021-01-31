@@ -40,7 +40,7 @@ class AddSupply extends Component
     public function mount()
     {
         $this->listings = Listing::where('supplier_id', $this->supplierId)->get();
-        $this->supplies = Supply::where('order_id', $this->orderId)->get();
+        // $this->supplies = Supply::where('order_id', $this->orderId)->get();
         $this->editing = $this->makeBlankOrder();
     }
 
@@ -98,7 +98,7 @@ class AddSupply extends Component
     public function render()
     {
         return view('livewire.supply.add-supply',
-        // [$this->listings = Listing::where('supplier_id', $this->supplierId)->get()]
+        // [$this->supplies = Supply::where('order_id', $this->orderId)->get()]
         );
     }
 }

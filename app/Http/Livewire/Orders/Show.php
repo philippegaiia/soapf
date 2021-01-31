@@ -82,7 +82,7 @@ class Show extends Component
     {
         // if($this->editing->order_id === $this->orderId) {
         return view('livewire.orders.show'
-        , [ $this->order = Order::find($this->orderId)]
+        // , [ $this->order = Order::find($this->orderId)]
         );
         // }
         // else {

@@ -19,7 +19,7 @@
                     </form>--}}
                     <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
 
-                    <x-buttons.edit-button-modal-sm wire:click="edit({{ $order->id }})" class="ml-3"></x-buttons.edit-button-modal-sm>
+                    {{-- <x-buttons.edit-button-modal-sm wire:click="edit({{ $order->id }})" class="ml-3"></x-buttons.edit-button-modal-sm> --}}
 
                     <x-buttons.liste-button
                         href="{{ route('orders.index')}}" class="ml-3">
@@ -194,7 +194,9 @@
     </div>
 </div>
 <div>
-    <livewire:supply.add-supply :supplierId="$order->supplier_id" :orderId="$order->id" />
+    {{-- <livewire:supply.add-supply --}}
+    {{-- :supplierId="$order->supplier_id" :orderId="$order->id"  --}}
+    />
 </div>
 
 

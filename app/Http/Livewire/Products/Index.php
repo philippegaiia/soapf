@@ -38,6 +38,7 @@ class Index extends Component
             'editing.product_subcategory_id' => 'required',
             'editing.product_collection_id' => 'required',
             'editing.code' => 'required|max:18',
+            'editing.brand' => 'required|max:18',
             'editing.launch_date_for_editing' => 'nullable',
             'editing.name' => 'required|max:40',
             'editing.essential_oils' => 'required',
@@ -72,13 +73,15 @@ class Index extends Component
 
     public function makeBlankOrder()
     {
-        return Product::make(['launch_date' => now(),
-                            'active' => 0,
-                            'essential_oils' => 0,
-                            'extracts' => 0,
-                            'product_collection_id' => 1,
-                            'product_subcategory_id' => 1,
-                            ]);
+        return Product::make([
+            'launch_date' => now(),
+            'active' => 0,
+            'brand' => 'Gaiia',
+            'essential_oils' => 0,
+            'extracts' => 0,
+            'product_collection_id' => 1,
+            'product_subcategory_id' => 1,
+        ]);
     }
 
 
