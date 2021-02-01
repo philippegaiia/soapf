@@ -37,31 +37,32 @@ class Show extends Component
 
     public function mount()
     {
-        //$this->order = Order::find($this->orderId);
+        // $order = Order::find($this->orderId);
         $this->suppliers = Supplier::all();
-        $this->editing = $this->makeBlankOrder();
+        // $this->editing = $this->makeBlankOrder();
     }
 
-    public function makeBlankOrder()
-    {
-        return Order::make(['order_date' => now(),
-                            'delivery_date' =>now(),
-                            'active' => 0,
-                            'supplier_id' => 1,
-                            ]);
-    }
+    // public function makeBlankOrder()
+    // {
+    //     return Order::make(['order_date' => now(),
+    //                         'delivery_date' =>now(),
+    //                         'active' => 0,
+    //                         'supplier_id' => 1,
+    //                         ]);
+    // }
 
 
-    public function create()
-    {
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankOrder();
-        $this->showEditModal = true;
-    }
+    // public function create()
+    // {
+    //     if ($this->editing->getKey()) $this->editing = $this->makeBlankOrder();
+    //     $this->showEditModal = true;
+    // }
 
 
     public function edit(Order $order)
     {
-        if ($this->editing->isNot($order)) $this->editing  = $order;
+        // if ($this->editing->isNot($order)) $this->editing  = $order;
+        $this->editing  = $order;
         $this->showEditModal = true;
     }
 
@@ -71,22 +72,19 @@ class Show extends Component
         // dd($this->editing);
         $this->validate();
         $this->editing->save();
+        $this->order = $this->editing;
         $this->showEditModal = false;
-        if($this->editing->order_id !== $this->orderId) {
-            $this->orderId = $this->editing->id;
-        }
-
     }
 
-    public function render()
+    public function render(Order $order)
     {
-        // if($this->editing->order_id === $this->orderId) {
-        return view('livewire.orders.show'
-        // , [ $this->order = Order::find($this->orderId)]
-        );
-        // }
-        // else {
-        //     $this->order = $this->editing
-        // }
+        return view('livewire.orders.show', compact('order'));
     }
 }
+
+//  public function render()
+//     {
+//         return view('livewire.orders.show', [
+//             'order' => Order::find($this->orderId)
+//         ]);
+//     }

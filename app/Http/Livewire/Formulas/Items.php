@@ -47,8 +47,9 @@ class Items extends Component
 
     public function mount()
     {
+
         $this->ingredients = Ingredient::all();
-        $this->editing = $this->makeBlankOrder();
+        $this->editing = $this->makeBlankSupply();
 
     }
 
@@ -63,7 +64,7 @@ class Items extends Component
         $this->sortField = $field;
     }
 
-    public function makeBlankOrder()
+    public function makeBlankSupply()
     {
         return FormulaItem::make([
             'organic' => 0,
@@ -76,7 +77,7 @@ class Items extends Component
 
     public function create()
     {
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankOrder();
+        if ($this->editing->getKey()) $this->editing = $this->makeBlankSupply();
         // dd($this->editing);
         $this->showEditModal = true;
     }
@@ -104,5 +105,6 @@ class Items extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->get(),
         ]);
+
     }
 }

@@ -75,7 +75,7 @@
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="60">
                         <x-slot name="trigger">
-                            <button class="flex items-center text-MD font-medium text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            <button class="flex items-center text-base font-semibold text-gray-700 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                                 <div>{{ __('Produits') }}</div>
 
                                 <div class="ml-1">
@@ -87,6 +87,9 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('formulas.index')">
+                                    {{ __('Formules') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('products.index')">
                                     {{ __('Produits') }}
                             </x-dropdown-link>

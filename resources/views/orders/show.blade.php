@@ -12,7 +12,7 @@
         </div>
     </x-slot>
     <div>
-    <livewire:orders.show :orderId="$order->id" />
+    <livewire:orders.show :order="$order" />
     </div>
 </x-app-layout>
 

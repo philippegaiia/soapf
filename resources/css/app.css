@@ -7,10 +7,10 @@
 }
 
 .description-dt {
-   @apply text-base font-semibold text-gray-600;
+   @apply text-lg font-medium text-gray-600;
 }
 
 .description-dd {
-   @apply mt-1 text-base font-medium text-gray-900 sm:mt-0 sm:col-span-2
+   @apply mt-1 text-lg font-semibold text-gray-900 sm:mt-0 sm:col-span-2
 }
 

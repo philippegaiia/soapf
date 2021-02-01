@@ -6,7 +6,7 @@
             <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link> --}}
         </div>
         <div>
-            <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
+            <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle ligne de commande</x-buttons.primary>
         </div>
     </div>
 
@@ -19,21 +19,18 @@
 
             <x-slot name="head">
 
-                <x-tables.heading >Ingrédient</x-tables.heading>
+                <x-tables.heading class="text-left">Ingrédient</x-tables.heading>
 
-                <x-tables.heading >No Lot</x-tables.heading>
+                <x-tables.heading class="text-left">No Lot</x-tables.heading>
 
-                <x-tables.heading >DLUO</x-tables.heading>
+                <x-tables.heading class="text-left">Packing</x-tables.heading>
 
-                <x-tables.heading >Packing</x-tables.heading>
+                <x-tables.heading class="text-left">Qté U</x-tables.heading>
 
-                <x-tables.heading >Poids unitaire</x-tables.heading>
+                <x-tables.heading class="text-left">Total</x-tables.heading>
 
-                <x-tables.heading >Quantité</x-tables.heading>
+                <x-tables.heading class="text-left">Statut</x-tables.heading>
 
-                <x-tables.heading >Total</x-tables.heading>
-
-                <x-tables.heading >Statut</x-tables.heading>
 
                 <x-tables.heading/>
 
@@ -45,16 +42,15 @@
 
                 <x-tables.row wire:loading.class.delay="opacity-50">
 
-                    <x-tables.cell>{{$supply->listing->name}}</x-tables.cell>
+                    <x-tables.cell>{{\Illuminate\Support\Str::limit($supply->listing->name, 50, $end='...')}}</x-tables.cell>
 
                     <x-tables.cell>{{$supply->batch_no}}</x-tables.cell>
 
-                    <x-tables.cell>{{$supply->expiry_date_for_humans}}</x-tables.cell>
-
-                    <x-tables.cell>{{$supply->pkg}}</x-tables.cell>
+                    <x-tables.cell>{{ $supply->listing->pkg}} - {{ $supply->listing->unit_weight }} @if ($supply->listing->pkg != 'Unitaire') kg @endif</x-tables.cell>
 
                     <x-tables.cell>{{$supply->qty}}</x-tables.cell>
 
+                    <x-tables.cell>{{$supply->qty * $supply->listing->unit_weight}} @if ($supply->listing->pkg != 'Unitaire') kg @endif</x-tables.cell>
 
                     <x-tables.cell>
 
@@ -68,8 +64,7 @@
 
                         <x-buttons.edit-button-modal-sm wire:click="edit({{ $supply->id }})"></x-buttons.edit-button-modal-sm>
 
-
-                        <x-buttons.show-button-sm href="{{ route('orders.show', ['supply' => $supply]) }}" class="ml-2"></x-buttons.show-button-sm>
+                        {{-- <x-buttons.show-button-sm href="{{ route('orders.show', ['supply' => $supply]) }}" class="ml-2"></x-buttons.show-button-sm> --}}
 
                     </x-tables.cell>
 

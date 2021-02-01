@@ -45,6 +45,11 @@ class Product extends Model
          return $this->belongsTo(ProductCollection::class);
     }
 
+    public function formulas()
+    {
+        return $this->belongsToMany(Formula::class);
+    }
+
     public function getActiveColorAttribute()
     {
         return [

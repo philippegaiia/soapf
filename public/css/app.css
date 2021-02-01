@@ -31441,17 +31441,17 @@ select {
 }
 
 .description-dt {
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   --tw-text-opacity: 1;
   color: rgba(75, 85, 99, var(--tw-text-opacity));
 }
 
 .description-dd {
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   margin-top: 0.25rem;
   --tw-text-opacity: 1;
   color: rgba(17, 24, 39, var(--tw-text-opacity))

@@ -18,7 +18,7 @@ class AddSupply extends Component
 
     public $showEditModal = false;
 
-    public $supplies;
+    public Order $order;
 
     public Supply $editing;
 
@@ -39,9 +39,11 @@ class AddSupply extends Component
 
     public function mount()
     {
+
         $this->listings = Listing::where('supplier_id', $this->supplierId)->get();
         // $this->supplies = Supply::where('order_id', $this->orderId)->get();
-        $this->editing = $this->makeBlankOrder();
+        $this->editing = $this->makeBlankSupply();
+        // dd($this->supplies);
     }
 
     // public function sortBy($field)
@@ -55,19 +57,20 @@ class AddSupply extends Component
     //     $this->sortField = $field;
     // }
 
-    public function makeBlankOrder()
+    public function makeBlankSupply()
     {
         return Supply::make([
-                            'order_id' => 1,
-                            'supplier_id' => $this->supplierId,
-                            'expiry_date' =>now()
+                            'order_id' => $this->orderId,
+                            'listing_id' => 1,
+                            'expiry_date' =>now(),
+                            'active' => 0
                             ]);
     }
 
 
     public function create()
     {
-        if ($this->editing->getKey()) $this->editing = $this->makeBlankOrder();
+        if ($this->editing->getKey()) $this->editing = $this->makeBlankSupply();
         $this->showEditModal = true;
     }
 
@@ -97,8 +100,10 @@ class AddSupply extends Component
     // }
     public function render()
     {
-        return view('livewire.supply.add-supply',
-        // [$this->supplies = Supply::where('order_id', $this->orderId)->get()]
-        );
+        $supplies = Supply::where('order_id', $this->orderId)->get();
+
+        return view('livewire.supply.add-supply', compact('supplies'));
+        // ,
+
     }
 }

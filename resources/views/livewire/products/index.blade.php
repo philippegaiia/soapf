@@ -74,6 +74,7 @@
                 <x-tables.heading sortable wire:click="sortBy('active')" :direction="$sortField === 'active' ? $sortDirection : null">Statut</x-tables.heading>
 
                 <x-tables.heading/>
+                <x-tables.heading/>
 
             </x-slot>
 
@@ -94,6 +95,11 @@
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $product->active_color }}-100 text-{{ $product->active_color }}-800 capitalize">
                             {{$product->active_name}}
                         </span>
+                    </x-tables.cell>
+                    <x-tables.cell>
+                        @foreach ($product->formulas as $formula)
+                            {{ $formula->name }} <br>
+                        @endforeach
                     </x-tables.cell>
                      <x-tables.cell>
                         <x-buttons.edit-button-modal-sm wire:click="edit({{ $product->id }})"></x-buttons.edit-button-modal-sm>
@@ -213,6 +219,15 @@
                         <x-input.select wire:model="editing.active" id="active">
                             @foreach (App\Models\Product::STATUSES as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </x-input.select>
+                    </x-input.group>
+
+                    <!-- attach formula -->
+                    <x-input.group for="productFormulas" label="Formules" :error="$errors->first('productFormulas')">
+                        <x-input.select multiple wire:model="productFormulas" id="productFormulas">
+                            @foreach ($formulas as $formula)
+                                <option value="{{ $formula->id }}">{{ $formula->name }} - {{ $formula->ref_dip }}</option>
                             @endforeach
                         </x-input.select>
                     </x-input.group>

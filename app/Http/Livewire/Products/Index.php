@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Products;
 
+use App\Models\Formula;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,8 +26,10 @@ class Index extends Component
     //     'date-max' => null
     // ];
 
+    public $productFormulas;
     public $collections;
     public $subcategories;
+    public $formulas;
 
     public Product $editing;
 
@@ -49,12 +52,20 @@ class Index extends Component
             'editing.ean_code' => 'required|max:20',
             'editing.wp_code' => 'required|max:20',
             'editing.infos' => 'nullable|max:500',
+            'productFormulas' => 'required|array',
+
         ];
     }
 
-    public function mount()
+    protected $validationAttributes = [
+        'productFormulas' => 'Formulas'
+    ];
+
+    public function mount(Product $product)
     {
+        //
         $this->subcategories = ProductSubcategory::all();
+        $this->formulas = Formula::all();
         $this->collections = ProductCollection::all();
         $this->editing = $this->makeBlankOrder();
 
@@ -88,6 +99,7 @@ class Index extends Component
     public function create()
     {
         if ($this->editing->getKey()) $this->editing = $this->makeBlankOrder();
+
         $this->showEditModal = true;
     }
 
@@ -95,6 +107,8 @@ class Index extends Component
     public function edit(Product $product)
     {
         if ($this->editing->isNot($product)) $this->editing = $product;
+        $this->productFormulas = $this->editing->formulas()->pluck('formula_id');
+        // dd($this->productFormulas);
         $this->showEditModal = true;
     }
 
@@ -104,6 +118,7 @@ class Index extends Component
         // dd($this->editing);
         $this->validate();
         $this->editing->save();
+        $this->editing->formulas()->sync($this->productFormulas);
         $this->showEditModal = false;
     }
 
@@ -116,3 +131,9 @@ class Index extends Component
         ]);
     }
 }
+
+//  return view('livewire.products.index', [
+//             'products' => Product::search('name', $this->search)
+//             ->orderBy($this->sortField, $this->sortDirection)
+//             ->paginate(12),
+//         ]);

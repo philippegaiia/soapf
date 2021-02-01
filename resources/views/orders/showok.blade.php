@@ -69,23 +69,14 @@
                                 <dt class="description-dt">No Facture</dt>
                                 <dd class="description-dd">{{ $order->invoice_no}}</dd>
                             </div>
-
-
                                 <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-8 sm:gap-4 sm:px-6">
 
-                                        <dt class="description-dt">Montant HT</dt>
-                                        <dd class="description-dd">{{ $order->amount}} Euros</dd>
+                                    <dt class="description-dt">Montant HT</dt>
+                                    <dd class="description-dd">{{ $order->amount}} Euros</dd>
 
-                                        <dt class="description-dt">Freight</dt>
-                                        <dd class="description-dd">{{ $order->freight}} Euros</dd>
-
+                                    <dt class="description-dt">Freight</dt>
+                                    <dd class="description-dd">{{ $order->freight}} Euros</dd>
                                 </div>
-
-
-
-
-
-
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="description-dt">
                                 Informations supplémentaires
@@ -94,25 +85,24 @@
                                     {{ $order->infos }}
                                 </dd>
                             </div>
-                            <div>
-
-                            </div>
-
                         </dl>
                     </div>
-            {{-- </div> --}}
-        {{-- </div> --}}
+                </div>
+            <div class="max-w-7xl mt-4 mx-auto sm:px-6 lg:px-8 ">
+                <div class="border-t-2 border-dashed border-indigo-200"></div>
+                <livewire:supply.add-supply  :orderId="$order->id" :supplierId="$order->supplier_id">
+            </div>
     </div>
 {{-- </div>
 </div> --}}
 
-<div class="py-12">
+{{-- <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             @livewire('supply.add-supply')
         </div>
     </div>
-</div>
+</div> --}}
 
 
 

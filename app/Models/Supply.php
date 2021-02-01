@@ -31,7 +31,7 @@ class Supply extends Model
 
     public function order()
     {
-        return $this->belongsTo(SupplierOrder::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function listing()
@@ -66,7 +66,7 @@ class Supply extends Model
     public function getActiveNameAttribute()
     {
         return [
-            0 => 'En Attente',
+            0 => 'Non livré',
             1 => 'En Stock',
             2 => 'Epuisé'
         ][$this->active];

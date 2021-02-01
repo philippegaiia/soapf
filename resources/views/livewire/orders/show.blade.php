@@ -1,3 +1,4 @@
+<div class="space-y-4 py-4">
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg"> --}}
             {{-- <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200"> --}}
@@ -17,9 +18,9 @@
                         <x-buttons.delete-button-sm class="ml-4" onclick="return confirm('Etes-vous certain de supprimer {{ $ingredient->name }}?')">
                         </x-buttons.delete-button-sm>
                     </form>--}}
-                    <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
+                    {{-- <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary> --}}
 
-                    {{-- <x-buttons.edit-button-modal-sm wire:click="edit({{ $order->id }})" class="ml-3"></x-buttons.edit-button-modal-sm> --}}
+                    <x-buttons.edit-button-modal-sm wire:click="edit({{ $order->id }})" class="ml-3"></x-buttons.edit-button-modal-sm>
 
                     <x-buttons.liste-button
                         href="{{ route('orders.index')}}" class="ml-3">
@@ -36,7 +37,7 @@
                                 <dd class="description-dd">{{ $order->supplier->name }}</dd>
                             </div>
 
-                            <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="description-dt">No Commande</dt>
                                 <dd class="description-dd">{{ $order->order_ref }}
                                 <span class="ml-12 px-3 py-1 rounded-full text-lg font-semibold leading-4 bg-{{ $order->active_color }}-100 text-{{ $order->active_color }}-800 capitalize">
@@ -64,13 +65,14 @@
                                 <dd class="description-dd">{{ $order->bl_no}} </dd>
                             </div>
 
-                            <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="description-dt">No Facture</dt>
                                 <dd class="description-dd">{{ $order->invoice_no}}</dd>
                             </div>
 
 
-                                <div class="bg-white px-4 py-4 sm:grid sm:grid-cols-8 sm:gap-4 sm:px-6">
+                                <div class="bg-gray-50 px-4 py-4 sm:grid sm:grid-cols-9
+                                 sm:gap-4 sm:px-6">
 
                                         <dt class="description-dt">Montant HT</dt>
                                         <dd class="description-dd">{{ $order->amount}} Euros</dd>
@@ -80,7 +82,7 @@
 
                                 </div>
 
-                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="description-dt">
                                 Informations supplémentaires
                                 </dt>
@@ -109,17 +111,17 @@
 
                 <x-slot name="content">
                     <!-- Supplier -->
-                    <x-input.group for="supplier" label="Statut" :error="$errors->first('editing.supplier_id')">
+                    {{-- <x-input.group for="supplier" label="Statut" :error="$errors->first('editing.supplier_id')">
                         <x-input.select wire:model="editing.supplier_id" id="supplier">
                             @foreach ($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                             @endforeach
                         </x-input.select>
-                    </x-input.group>
+                    </x-input.group> --}}
 
                     <!-- Order ref -->
                     <x-input.group for="order_ref" label="Référence Commande" :error="$errors->first('editing.order_ref')">
-                        <x-input.text wire:model="editing.order_ref" id="order_ref" />
+                        <x-input.text wire:model.debounce.2000="editing.order_ref" id="order_ref" />
                     </x-input.group>
 
                     <!-- Order date -->
@@ -192,11 +194,14 @@
             </x-dialog-modal>
         </form>
     </div>
-</div>
-<div>
-    {{-- <livewire:supply.add-supply --}}
-    {{-- :supplierId="$order->supplier_id" :orderId="$order->id"  --}}
-    />
-</div>
 
 
+
+
+</div>
+{{-- :supplierId="$order->supplier_id" --}}
+
+<div class="max-w-7xl mt-4 mx-auto ">
+    <div class="border-t-2 border-dashed border-indigo-200"></div>
+    <livewire:supply.add-supply  :orderId="$order->id" :supplierId="$order->supplier_id">
+</div></div>
