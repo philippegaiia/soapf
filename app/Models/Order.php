@@ -102,5 +102,4 @@ class Order extends Model
     {
         $this->delivery_date = Carbon::parse($value);
     }
-
 }

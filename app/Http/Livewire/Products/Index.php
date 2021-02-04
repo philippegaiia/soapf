@@ -43,7 +43,7 @@ class Index extends Component
             'editing.code' => 'required|max:18',
             'editing.brand' => 'required|max:18',
             'editing.launch_date_for_editing' => 'nullable',
-            'editing.name' => 'required|max:40',
+            'editing.name' => 'required|max:60',
             'editing.essential_oils' => 'required',
             'editing.extracts' => 'required',
             'editing.net_weight' => 'required|min:0|max:2000',

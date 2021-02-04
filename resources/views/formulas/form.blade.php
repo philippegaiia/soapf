@@ -14,7 +14,7 @@
 </x-input.group>
 
 <!-- formula start date -->
-<x-input.group for="start_date_for_editing" label="Date de lancement" :error="$errors->first('start_date_for_editing')">
+<x-input.group for="start_date_for_editing" label="Date d'application" :error="$errors->first('start_date_for_editing')">
     <x-input.text type="date" name="start_date_for_editing" id="start_date_for_editing" :value="old('start_date_for_editing') ?? $formula->start_date_for_editing"/>
 </x-input.group>
 

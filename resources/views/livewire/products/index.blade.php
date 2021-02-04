@@ -69,11 +69,11 @@
 
                 <x-tables.heading sortable wire:click="sortBy('launch_date')" :direction="$sortField === 'launch_date' ? $sortDirection : null">Date lancement</x-tables.heading>
 
-                <x-tables.heading sortable wire:click="sortBy('brand')" :direction="$sortField === 'brand' ? $sortDirection : null">Marque</x-tables.heading>
+                {{-- <x-tables.heading sortable wire:click="sortBy('brand')" :direction="$sortField === 'brand' ? $sortDirection : null">Marque</x-tables.heading> --}}
 
                 <x-tables.heading sortable wire:click="sortBy('active')" :direction="$sortField === 'active' ? $sortDirection : null">Statut</x-tables.heading>
 
-                <x-tables.heading/>
+                <x-tables.heading class="text-left">DIP</x-tables.heading>
                 <x-tables.heading/>
 
             </x-slot>
@@ -82,7 +82,9 @@
 
                 @forelse ($products as $product)
 
-                <x-tables.row wire:loading.class.delay="opacity-50">
+                <x-tables.row
+                {{-- wire:loading.class.delay="opacity-50" --}}
+                >
 
                     <x-tables.cell>{{$product->code}}</x-tables.cell>
                     <x-tables.cell>{{$product->name}} {{$product->net_weight}}G</x-tables.cell>
@@ -90,7 +92,7 @@
                     <x-tables.cell>{{$product->productSubcategory->name}}</x-tables.cell>
                     <x-tables.cell>{{$product->productCollection->name}}</x-tables.cell>
                     <x-tables.cell>{{$product->launch_date_for_humans}}</x-tables.cell>
-                    <x-tables.cell>{{$product->brand}}</x-tables.cell>
+                    {{-- <x-tables.cell>{{$product->brand}}</x-tables.cell> --}}
                     <x-tables.cell>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $product->active_color }}-100 text-{{ $product->active_color }}-800 capitalize">
                             {{$product->active_name}}
@@ -98,7 +100,7 @@
                     </x-tables.cell>
                     <x-tables.cell>
                         @foreach ($product->formulas as $formula)
-                            {{ $formula->name }} <br>
+                           {{ $formula->ref_dip }} {{ $formula->name }} <br>
                         @endforeach
                     </x-tables.cell>
                      <x-tables.cell>

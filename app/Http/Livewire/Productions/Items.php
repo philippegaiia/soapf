@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Formulas;
+namespace App\Http\Livewire\Productions;
 
-use App\Models\Formula;
 use Livewire\Component;
 use App\Models\Ingredient;
-use App\Models\FormulaItem;
+use App\Models\ProductionItem;
 
 class Items extends Component
 {
-
-    public $search = '';
+     public $search = '';
     public $sortField = 'phase';
     public $sortDirection = 'asc';
     public $showEditModal = false;
@@ -19,8 +17,9 @@ class Items extends Component
     public $ingredients;
 
     public $formulaId;
+    public $productionId;
 
-    public FormulaItem $editing;
+    public ProductionItem $editing;
 
     protected $queryString = ['sortField', 'sortDirection'];
 
@@ -28,7 +27,7 @@ class Items extends Component
 
         return [
             'editing.ingredient_id' => 'required',
-            'editing.formula_id' => 'required',
+            'editing.listing_id' => 'required',
             'editing.percentoils_dip' => 'required|numeric|min:0|max:100',
             'editing.percentoils_real' => 'required|numeric|min:0|max:100',
             'editing.percenttotal_dip' => 'required|numeric|min:0|max:100',
@@ -59,11 +58,12 @@ class Items extends Component
 
     public function makeBlankSupply()
     {
-        return FormulaItem::make([
+        return ProductionItem::make([
             'organic' => 0,
             'phase' => 0,
             'ingredient_id' => 1,
-            'formula_id' => $this->formulaId,
+            'production_id' => $this->productionId,
+            'listing_id' => 1,
         ]);
     }
 
@@ -76,7 +76,7 @@ class Items extends Component
     }
 
 
-    public function edit(FormulaItem $item)
+    public function edit(ProductionItem $item)
     {
         if ($this->editing->isNot($item)) $this->editing = $item;
         $this->showEditModal = true;
@@ -93,11 +93,12 @@ class Items extends Component
 
     public function render()
     {
-        return view('livewire.formulas.items', [
-            'items' => FormulaItem::where('formula_id', $this->formulaId)
+        return view('livewire.productions.items', [
+            'items' => ProductionItem::where('production_id', $this->productionId)
             ->orderBy($this->sortField, $this->sortDirection)
             ->get(),
         ]);
 
     }
+
 }

@@ -2,8 +2,7 @@
     <div class="flex justify-between">
 
         <div class="w-2/4 flex space-x-4">
-            {{-- <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
-            <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link> --}}
+            <p class="text-xl">Items de la commande</p>
         </div>
         <div>
             <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle ligne de commande</x-buttons.primary>
@@ -109,7 +108,7 @@
 
                     <!-- Batch No -->
                     <x-input.group for="batch_no" label="Batch" :error="$errors->first('editing.batch_no')">
-                        <x-input.text wire:model="editing.batch_no" id="batch_no" />
+                        <x-input.text wire:model.lazy="editing.batch_no" id="batch_no" />
                     </x-input.group>
 
                     <!-- Order date -->
@@ -118,8 +117,8 @@
                     </x-input.group>
 
                      <!-- Ordered quantity-->
-                    <x-input.group for="qty" label="Quqntité unitaire" :error="$errors->first('qty')">
-                        <x-input.text type="text" wire:model="editing.qty" id="qty" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
+                    <x-input.group for="qty" label="Quantité unitaire" :error="$errors->first('qty')">
+                        <x-input.text type="number" wire:model="editing.qty" id="qty" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
                     </x-input.group>
 
                     <!-- Prix achat unitaire-->
@@ -143,10 +142,11 @@
                         wire:loading.attr="disabled" >
                             {{ __('Annuler') }}
                         </x-secondary-button>
+                        <x-buttons.primary type="submit">{{ __('Enregistrer') }}</x-buttons.primary>
 
-                        <x-button class="ml-2" wire:loading.attr="disabled">
+                        {{-- <x-button class="ml-2" wire:loading.attr="disabled">
                             {{ __('Save') }}
-                        </x-button>
+                        </x-button> --}}
                     </x-slot>
             </x-dialog-modal>
         </form>

@@ -36,7 +36,7 @@ class Table extends Component
             'editing.supplier_id' => 'required',
             'editing.order_ref' => 'required|max:18',
             'editing.order_date_for_editing' => 'before_or_equal:today',
-            'editing.delivery_date_for_editing' => 'after_or_equal:editing.order_date',
+            'editing.delivery_date_for_editing' => 'after_or_equal:editing.order_date_for_editing',
             'editing.confirmation_no' => 'nullable|max:20',
             'editing.invoice_no' => 'nullable|max:20',
             'editing.bl_no' => 'nullable|max:20',
@@ -70,6 +70,7 @@ class Table extends Component
                             'delivery_date' =>now(),
                             'active' => 0,
                             'supplier_id' => 1,
+                            'order_ref' => time()
                             ]);
     }
 
@@ -83,14 +84,13 @@ class Table extends Component
 
     public function edit(Order $order)
     {
-        if ($this->editing->isNot($order)) $this->editing  = $order;
+        if ($this->editing->isNot($order)) $this->editing = $order;
         $this->showEditModal = true;
     }
 
 
     public function save()
     {
-        // dd($this->editing);
         $this->validate();
         $this->editing->save();
         $this->showEditModal = false;

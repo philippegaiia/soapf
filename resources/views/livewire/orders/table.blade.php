@@ -1,14 +1,14 @@
 <div class="py-4 space-y-4 ">
     <div class="flex justify-between">
 
-        <div class="w-2/4 flex space-x-4">
-            <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
-            <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link>
+            <div class="w-2/4 flex space-x-4">
+                <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
+                <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link>
+            </div>
+            <div>
+                <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
+            </div>
         </div>
-        <div>
-            <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
-        </div>
-    </div>
 
     <!-- Advanced Search -->
         <div>
@@ -33,7 +33,7 @@
                     </x-input.group>
                 </div>
 
-                <div class="w-1/2 pl-2 space-y-4">
+                <div class="relative w-1/2 pl-2 space-y-4">
                     <x-input.group inline for="filter-date-min" label="Minimum Date">
                         <x-input.date wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
                     </x-input.group>
@@ -41,9 +41,9 @@
                     <x-input.group inline for="filter-date-max" label="Maximum Date">
                         <x-input.date wire:model="filters.date-max" id="filter-date-max" placeholder="MM/DD/YYYY" />
                     </x-input.group>
-                    {{-- <div class="absolute right-0 bottom-0 p-4">
+                    <div class="absolute right-0 bottom-0 p-2">
                         <x-buttons.link wire:click="resetFilters" >Reset...</x-buttons.link>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             @endif
@@ -207,10 +207,11 @@
                         wire:loading.attr="disabled" >
                             {{ __('Annuler') }}
                         </x-secondary-button>
-
+                        <x-buttons.primary type="submit">{{ __('Enregistrer') }}</x-buttons.primary>
+{{--
                         <x-button class="ml-2" wire:loading.attr="disabled">
                             {{ __('Save') }}
-                        </x-button>
+                        </x-button> --}}
                     </x-slot>
             </x-dialog-modal>
         </form>

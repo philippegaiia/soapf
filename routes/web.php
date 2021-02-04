@@ -7,7 +7,9 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\SupplierOrderController;
+use App\Http\Controllers\ProductionItemController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\SupplierListingController;
 use App\Http\Controllers\ProductCollectionController;
@@ -49,6 +51,8 @@ Route::resource('product_subcategories', ProductSubcategoryController::class)->o
 Route::resource('product_collections', ProductCollectionController::class)->only(['index'])->middleware('auth');
 Route::resource('products', ProductController::class)->middleware('auth');
 Route::resource('formulas', FormulaController::class)->middleware('auth');
+Route::resource('productions', ProductionController::class)->middleware('auth');
+Route::resource('productionItems', ProductionItemController::class)->middleware('auth');
 
 // Route::get('product_categories', App\Http\Livewire\ProductCategories\Index::class);
 

@@ -54,7 +54,7 @@
                                 Référence
                                 </dt>
                                 <dd class="description-dd">
-                                {{ $formula->dip_ref }}
+                                {{ $formula->ref_dip }}
                                 </dd>
                             </div>
 
@@ -63,7 +63,7 @@
                                 Date d'application
                                 </dt>
                                 <dd class="description-dd">
-                                {{ $formula->date_start_for_humans}}
+                                {{ $formula->start_date_for_humans}}
                                 </dd>
                             </div>
 
