@@ -40,6 +40,11 @@ class Ingredient extends Model
         return $this->hasMany(Listing::class);
     }
 
+    public function production_items()
+    {
+        return $this->hasMany(ProductionItem::class);
+    }
+
     public function documentations()
     {
         return $this->morphMany(Documentation::class, 'documentationable');

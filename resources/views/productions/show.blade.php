@@ -12,7 +12,7 @@
         </div>
     </x-slot>
     <div>
-    <livewire:productions.show :production="$production" />
+        <livewire:productions.show :production="$production" :productionId="$production->id" />
     </div>
 </x-app-layout>
 

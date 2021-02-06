@@ -17,7 +17,7 @@ class CreateProductionItemsTable extends Migration
             $table->id();
             $table->foreignId('production_id')->constrained();
             $table->foreignId('ingredient_id')->constrained();
-            $table->foreignId('listing_id')->constrained();
+            $table->foreignId('supply_id')->nullable()->constrained();
             $table->float('percentoils_dip',6,3)->nullable();
             $table->float('percentoils_real',6,3)->nullable();
             $table->float('percenttotal_dip',6,3)->nullable();

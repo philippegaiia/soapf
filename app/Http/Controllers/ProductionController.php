@@ -46,7 +46,6 @@ class ProductionController extends Controller
      */
     public function show(Production $production)
     {
-        dd($production);
         return view('productions.show', compact('production'));
     }
 

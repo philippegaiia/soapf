@@ -15,10 +15,10 @@ class Production extends Model
     protected $guarded = [];
 
     const STATUSES = [
-        0 => 'Planifié',
-        1 => 'Confirmé',
-        2 => 'Terminé',
-        3 => 'Annulé'
+        0 => 'Planifiée',
+        1 => 'Confirmée',
+        2 => 'Terminée',
+        3 => 'Annulée'
     ];
 
     protected $casts = [
@@ -58,10 +58,10 @@ class Production extends Model
     public function getStatusNameAttribute()
     {
         return [
-            0 => 'Planifié',
-            1 => 'Confirmé',
-            2 => 'Terminé',
-            3 => 'Annulé'
+            0 => 'Planifiée',
+            1 => 'Confirmée',
+            2 => 'Terminée',
+            3 => 'Annulée'
         ][$this->status];
     }
 

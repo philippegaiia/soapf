@@ -97,6 +97,7 @@ class Listing extends Model
              : static::where('supplier_ref', 'like', '%'.$search.'%')
                 ->orWhere('name', 'like', '%'.$search.'%')
                 ->orWhere('code', 'like', '%'.$search.'%')
+                ->orWhere('ingredient_id', 'like', '%'.$search.'%')
                 ;
     }
 

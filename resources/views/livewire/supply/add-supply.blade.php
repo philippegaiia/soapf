@@ -18,6 +18,8 @@
 
             <x-slot name="head">
 
+                <x-tables.heading class="text-left">Ref</x-tables.heading>
+
                 <x-tables.heading class="text-left">Ingrédient</x-tables.heading>
 
                 <x-tables.heading class="text-left">No Lot</x-tables.heading>
@@ -40,6 +42,7 @@
                 @forelse ($supplies as $supply)
 
                 <x-tables.row wire:loading.class.delay="opacity-50">
+                    <x-tables.cell>{{$supply->listing->supplier_ref}}</x-tables.cell>
 
                     <x-tables.cell>{{\Illuminate\Support\Str::limit($supply->listing->name, 50, $end='...')}}</x-tables.cell>
 
@@ -100,12 +103,21 @@
                     <!-- Select a listing delonging to the supplier -->
                     <x-input.group for="listing" label="Ingrédient" :error="$errors->first('editing.listing_id')">
                         <x-input.select wire:model="editing.listing_id" id="listing">
+                            <option value="">-- choisir ingrédient --</option>
                             @foreach ($listings as $listing)
-                                <option value="{{ $listing->id }}">{{ $listing->name }}</option>
+                                <option value="{{ $listing->id }}">{{ $listing->name }} {{ $listing->pkg }} {{ $listing->unit_weight }}kg</option>
                             @endforeach
                         </x-input.select>
                     </x-input.group>
+                    <!-- Ordered quantity-->
+                    <x-input.group for="qty" label="Quantité unitaire" :error="$errors->first('qty')">
+                        <x-input.text type="number" wire:model="editing.qty" id="qty" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
+                    </x-input.group>
 
+                    <!-- Prix achat unitaire-->
+                    <x-input.group  for="price" label="Montant HT" :error="$errors->first('editing.price')">
+                        <x-input.money wire:model.lazy="editing.price" id="price" />
+                    </x-input.group>
                     <!-- Batch No -->
                     <x-input.group for="batch_no" label="Batch" :error="$errors->first('editing.batch_no')">
                         <x-input.text wire:model.lazy="editing.batch_no" id="batch_no" />
@@ -116,15 +128,7 @@
                         <x-input.date wire:model="editing.expiry_date_for_editing" id="expiry_date_for_editing" />
                     </x-input.group>
 
-                     <!-- Ordered quantity-->
-                    <x-input.group for="qty" label="Quantité unitaire" :error="$errors->first('qty')">
-                        <x-input.text type="number" wire:model="editing.qty" id="qty" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01" placeholder="000.00" required/>
-                    </x-input.group>
 
-                    <!-- Prix achat unitaire-->
-                    <x-input.group  for="price" label="Montant HT" :error="$errors->first('editing.price')">
-                        <x-input.money wire:model.lazy="editing.price" id="price" />
-                    </x-input.group>
 
                     <!-- Statut -->
                     <x-input.group for="active" label="Statut" :error="$errors->first('editing.active')">

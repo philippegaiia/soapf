@@ -69,7 +69,7 @@ class Table extends Component
         return Order::make(['order_date' => now(),
                             'delivery_date' =>now(),
                             'active' => 0,
-                            'supplier_id' => 1,
+                            // 'supplier_id' => 1,
                             'order_ref' => time()
                             ]);
     }

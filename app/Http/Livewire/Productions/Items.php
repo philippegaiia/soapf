@@ -2,21 +2,29 @@
 
 namespace App\Http\Livewire\Productions;
 
+use App\Models\Listing;
 use Livewire\Component;
 use App\Models\Ingredient;
+use App\Models\Production;
+use App\Models\FormulaItem;
 use App\Models\ProductionItem;
+use Illuminate\Support\Facades\DB;
 
 class Items extends Component
 {
-     public $search = '';
+    public $search = '';
     public $sortField = 'phase';
     public $sortDirection = 'asc';
     public $showEditModal = false;
+    public $selectedSupply;
+
+    public $production;
 
 
-    public $ingredients;
+    public $listings;
+    public $duplicate;
 
-    public $formulaId;
+    // public $ingredientId;
     public $productionId;
 
     public ProductionItem $editing;
@@ -27,10 +35,10 @@ class Items extends Component
 
         return [
             'editing.ingredient_id' => 'required',
-            'editing.listing_id' => 'required',
-            'editing.percentoils_dip' => 'required|numeric|min:0|max:100',
+            'editing.supply_id' => 'nullable',
+            // 'editing.percentoils_dip' => 'required|numeric|min:0|max:100',
             'editing.percentoils_real' => 'required|numeric|min:0|max:100',
-            'editing.percenttotal_dip' => 'required|numeric|min:0|max:100',
+            // 'editing.percenttotal_dip' => 'required|numeric|min:0|max:100',
             'editing.percenttotal_real' => 'required|numeric|min:0|max:100',
             'editing.organic' => 'required',
             'editing.phase' => 'required',
@@ -39,10 +47,11 @@ class Items extends Component
 
     public function mount()
     {
-
-        $this->ingredients = Ingredient::all();
+        // $this->listings = Listing::all();
+        // $this->listings = Listing::where('ingredient_id', $this->ingredientId)->get();
+        // dd($this->listings);
+        // $this->listings = Listing::where('ingredient_id', $this->ingredientId);
         $this->editing = $this->makeBlankSupply();
-
     }
 
     public function sortBy($field)
@@ -61,9 +70,9 @@ class Items extends Component
         return ProductionItem::make([
             'organic' => 0,
             'phase' => 0,
-            'ingredient_id' => 1,
+            // 'ingredient_id' => 1,
             'production_id' => $this->productionId,
-            'listing_id' => 1,
+            // 'listing_id' => 1,
         ]);
     }
 
@@ -78,27 +87,92 @@ class Items extends Component
 
     public function edit(ProductionItem $item)
     {
+        // $this->ingredientId = $item->ingredient_id;
+        // dd($this->ingredientId);
+        // $this->listings = Listing::where('ingredient_id', $this->ingredientId)->get();
+        // dd($this->listings);
+
+        // $listings = DB::table('listings')
+        //             ->select('id')
+        //             ->where('ingredient_id', $this->ingredientId)
+        //             ->get();
+
+
+        // $supplies = DB::table('supplies')
+        //             ->joinSub($listings, 'listings', function($join){
+        //                 $join->on('listings.id', '=', 'supplies.listing_id');
+        //             })->get;
+        // dd($supplies);
+        // $supplies = db::table('supplies')
+        //             ->rightOuterjoin('listings', 'supplies.listing_id', '=', 'listings.id')->where('ingredient_id', $this->ingredientId)
+        //             ->get();
+
+        // $listings = db::table('listings')
+        //
+        //             ->rightJoin('supplies', 'supplies.listing_id', '=', 'listings.id')
+        //             ->get();
+
+        // $supplies = DB:table('supplies')->rightJoin('')
+
         if ($this->editing->isNot($item)) $this->editing = $item;
+        // dd($this->editing);
         $this->showEditModal = true;
     }
 
 
     public function save()
     {
-        // dd($this->editing);
+
         $this->validate();
+        $this->editing['supply_id'] = $this->selectedSupply;
         $this->editing->save();
         $this->showEditModal = false;
     }
 
-    public function render()
+    public function duplicate(ProductionItem $item)
     {
-        return view('livewire.productions.items', [
-            'items' => ProductionItem::where('production_id', $this->productionId)
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->get(),
-        ]);
+        $this->duplicate = $item->replicate();
+        $this->duplicate->save();
+    }
+
+    public function createItems($id, $formula_id)
+    {
+        $formulaItems = FormulaItem::where('formula_id', $formula_id)
+                ->select('ingredient_id','percentoils_dip','percentoils_real','percenttotal_dip','percenttotal_real','organic','phase')
+                ->get();
+
+        foreach($formulaItems as $formulaItem){
+
+                $item = new ProductionItem([
+                    'production_id' => $id,
+                    'ingredient_id' => $formulaItem->ingredient_id,
+                    'percentoils_dip'  => $formulaItem->percentoils_dip,
+                    'percentoils_real'  => $formulaItem->percentoils_real,
+                    'percenttotal_dip'  => $formulaItem->percenttotal_dip,
+                    'percenttotal_real'  => $formulaItem->percenttotal_real,
+                    'organic'  => $formulaItem->organic,
+                    'phase'  => $formulaItem->phase,
+                ]);
+
+                $production = Production::find($id);
+
+                $production->production_items()->save($item);
+            }
 
     }
 
+    public function render()
+    {
+        $items = ProductionItem::where('production_id', $this->productionId)->get();
+        // dd($items);
+        return view('livewire.productions.items', [
+            'items' => $items
+        ]);
+    }
 }
+
+
+// return view('livewire.productions.items', [
+//             'items' => ProductionItem::where('production_id', $this->productionId)
+//             ->orderBy($this->sortField, $this->sortDirection)
+//             ->get()

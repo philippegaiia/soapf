@@ -41,6 +41,7 @@ class AddSupply extends Component
     {
 
         $this->listings = Listing::where('supplier_id', $this->supplierId)->get();
+        // dd($this->listings);
         // $this->supplies = Supply::where('order_id', $this->orderId)->get();
         $this->editing = $this->makeBlankSupply();
         // dd($this->supplies);
@@ -61,7 +62,7 @@ class AddSupply extends Component
     {
         return Supply::make([
                             'order_id' => $this->orderId,
-                            'listing_id' => 1,
+                            // 'listing_id' => 1,
                             'expiry_date' =>now(),
                             'active' => 0
                             ]);

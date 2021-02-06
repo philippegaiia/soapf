@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Listing;
 use Livewire\Component;
 use App\Models\Ingredient;
 use App\Models\IngredientCategory;

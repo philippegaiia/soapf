@@ -5,8 +5,10 @@
         {{-- <div class="w-2/4 flex space-x-4">
             <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
         </div> --}}
-        <div>
-            <x-buttons.primary wire:click="create" ><x-icons.plus />Ajouter un ingredient à la formule</x-buttons.primary>
+        <x-buttons.special wire:click="createItems({{ $production->id }},'{{ $production->formula_id }}')" ><x-icons.plus />générer items</x-buttons.special>
+
+        <div class="mx-4">
+            <x-buttons.primary wire:click="create" ><x-icons.plus />Ajouter un ingredient</x-buttons.primary>
         </div>
     </div>
 
@@ -15,8 +17,9 @@
         <x-tables.table>
             <x-slot name="head">
                 <x-tables.heading sortable wire:click="sortBy('ingredient_id')" :direction="$sortField === 'ingredient_id' ? $sortDirection : null">Ingredient</x-tables.heading>
-                <x-tables.heading sortable wire:click="sortBy('percentoils_real')" :direction="$sortField === 'percentoils_real' ? $sortDirection : null">Réel % oils</x-tables.heading>
-                <x-tables.heading sortable wire:click="sortBy('percenttotal_real')" :direction="$sortField === 'percenttotal_real' ? $sortDirection : null">Réel % total</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('supply_id')" :direction="$sortField === 'supply_id' ? $sortDirection : null">listing</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('percentoils_real')" :direction="$sortField === 'percentoils_real' ? $sortDirection : null">% oils</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('percenttotal_real')" :direction="$sortField === 'percenttotal_real' ? $sortDirection : null">% total</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('organic')" :direction="$sortField === 'organic' ? $sortDirection : null">Bio</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('phase')" :direction="$sortField === 'phase' ? $sortDirection : null">Phase</x-tables.heading>
                 <x-tables.heading/>
@@ -25,8 +28,7 @@
                 @forelse ($items as $item)
                 <x-tables.row wire:loading.class.delay="opacity-50">
                     <x-tables.cell>{{$item->ingredient->name}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percentoils_dip}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percenttotal_dip}}</x-tables.cell>
+                    <x-tables.cell>{{$item->listing->code ?? ''}} {{$item->listing->name ?? ''}}</x-tables.cell>
                     <x-tables.cell>{{$item->percentoils_real}}</x-tables.cell>
                     <x-tables.cell>{{$item->percenttotal_real}}</x-tables.cell>
                     <x-tables.cell>
@@ -41,6 +43,7 @@
                     </x-tables.cell>
                      <x-tables.cell>
                         <x-buttons.edit-button-modal-sm wire:click="edit({{ $item->id }})"></x-buttons.edit-button-modal-sm>
+                        <x-buttons.duplicate-button-modal-sm wire:click="duplicate({{ $item->id }})"></x-buttons.duplicate-button-modal-sm>
                     </x-tables.cell>
                 </x-tables.row>
                 @empty
@@ -59,23 +62,41 @@
     <div >
         <form wire:submit.prevent="save">
             <x-dialog-modal wire:model.defer="showEditModal" >
-                <x-slot name="title">Mettre à Jour la ligne</x-slot>
+                <x-slot name="title">Mettre à Jour la formule </x-slot>
                 <x-slot name="content">
-                    <input type="text" hidden wire:model="editing.formula_id">
-                    <!-- select ingredient -->
-                    <x-input.group for="listing_id" label="Ingrédient" :error="$errors->first('editing.listing_id')">
-                        <x-input.select wire:model="editing.ingredient_id" id="ingredient_id">
+                    <input type="text" hidden wire:model="editing.ingredient_id">
+                    <!-- select ingredient listing -->
+                    {{-- <x-input.group for="listing_id" label="Listing" :error="$errors->first('editing.listing_id')">
+                        <x-input.select wire:model="editing.listing_id" id="listing_id">
+                            <option value="">-- Choisir un ingrédient --</option>
                             @foreach ($listings as $listing)
                                 <option value="{{ $listing->id }}">{{ $listing->name }}</option>
                             @endforeach
                         </x-input.select>
-                    </x-input.group>
+                    </x-input.group> --}}
+                    <!-- select ingredient listing -->
+                    {{-- <x-input.group for="listing_id" label="Listing" :error="$errors->first('editing.listing_id')">
+                        <x-input.select wire:model="editing.listing_id" id="listing_id">
+                            <option value="">-- Choisir un ingrédient --</option>
+                            @foreach ($supplies as $supply)
+                                <option value="{{ $supply->id }}">{{ $supply->listing->name }}</option>
+                            @endforeach
+                        </x-input.select>
+                    </x-input.group> --}}
                     <!-- percentage of oils real-->
-                    <x-input.group for="percentoils_dip" label="% huiles DIP" :error="$errors->first('percentoils_dip')">
-                        <x-input.text type="text" wire:model="editing.percentoils_real" id="percentoils_dip" pattern="[0-9]+([\.|,][0-9]+)?" step="0.001" placeholder="000.000" required/>
+
+                    {{-- <div>
+                        @if ($item)
+                           <livewire:productions.select-supply :ingredientId="$item->ingredient_id" :selectedSupply="$item->supply_id" />
+                        @endif
+
+                    </div> --}}
+
+                    <x-input.group for="percentoils_real" label="% / huiles " :error="$errors->first('editing.percentoils_real')">
+                        <x-input.text type="text" wire:model="editing.percentoils_real" id="percentoils_real" pattern="[0-9]+([\.|,][0-9]+)?" step="0.001" placeholder="000.000" required/>
                     </x-input.group>
                     <!-- percentage total real -->
-                    <x-input.group for="percenttotal_real" label="% réel DIP" :error="$errors->first('percenttotal_real')">
+                    <x-input.group for="percenttotal_real" label="% / Total" :error="$errors->first('percenttotal_real')">
                         <x-input.text type="text" wire:model="editing.percenttotal_real" id="percenttotal_real" pattern="[0-9]+([\.|,][0-9]+)?" step="0.001" placeholder="000.000" required/>
                     </x-input.group>
                     <!-- has to be organic -->

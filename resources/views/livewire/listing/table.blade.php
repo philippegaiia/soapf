@@ -6,6 +6,7 @@
         <div class="w-1/6 relative mx-2">
             <select wire:model="sortField" class="block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-200 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-indigo-300" id="grid-state">
                 <option value="name">Désignation</option>
+                <option value="name">Ingrédient</option>
                 <option value="supplier_ref">Ref Fournisseur</option>
                 <option value="code">Code</option>
                 <option value="supplier_id">Fournisseur</option>
@@ -57,11 +58,14 @@
                                     Ref. Fournisseur
                                 </th>
                                 <th scope="col" class="table-head">
-                                    Désignation
+                                    Ingrédient
                                 </th>
                                 <th scope="col" class="table-head">
-                                    PCB
+                                    Désignation
                                 </th>
+                                {{-- <th scope="col" class="table-head">
+                                    PCB
+                                </th> --}}
                                 <th scope="col" class="table-head">
                                     Bio
                                 </th>
@@ -82,12 +86,16 @@
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail>
-                                        {{ $listing->name }}
+                                        {{ \Illuminate\Support\Str::limit($listing->ingredient->name, 30,'...') }}
                                     </x-tables.table-detail>
 
                                     <x-tables.table-detail>
-                                        {{ $listing->pkg }} - {{ $listing->unit_weight }} @if ($listing->pkg != 'Unitaire') kg @endif
+                                        {{ \Illuminate\Support\Str::limit($listing->name, 30,'...') }} {{ $listing->unit_weight }} @if ($listing->pkg != 'Unitaire') kg @endif
                                     </x-tables.table-detail>
+
+                                    {{-- <x-tables.table-detail>
+
+                                    </x-tables.table-detail> --}}
 
                                     <x-tables.table-detail >
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $listing->organic_color }}-100 text-{{ $listing->organic_color }}-800 capitalize">

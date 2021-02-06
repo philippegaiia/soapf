@@ -51,10 +51,10 @@
                         <dt class="description-dt col-span-3">Détail facture</dt>
 
                         <dt class="description-dt">Montant HT:</dt>
-                        <dd class="description-dd">{{ $order->amount}} Euros</dd>
+                        <dd class="description-dd">{{ number_format($order->amount,2,',', ' ')}} Euros</dd>
 
                         <dt class="description-dt">Freight:</dt>
-                        <dd class="description-dd">{{ $order->freight}} Euros</dd>
+                        <dd class="description-dd">{{ number_format($order->freight,2,',', ' ') }} Euros</dd>
                     </div>
 
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

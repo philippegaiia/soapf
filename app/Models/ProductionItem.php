@@ -36,6 +36,11 @@ class ProductionItem extends Model
         return $this->belongsTo(Supply::class);
     }
 
+    public function ingredient()
+    {
+        return $this->belongsTo(Ingredient::class);
+    }
+
     public function getOrganicColorAttribute()
     {
         return [

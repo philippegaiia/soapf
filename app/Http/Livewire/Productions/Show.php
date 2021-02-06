@@ -11,6 +11,7 @@ class Show extends Component
 
     public $showEditModal = false;
     public $formulas;
+    public $listingId;
 
     public $production;
 
@@ -36,7 +37,8 @@ class Show extends Component
 
     public function mount()
     {
-        $order = Production::find($this->productionId);
+        // dd($production);
+        // $production = Production::find($this->productionId);
         $this->formulas = Formula::all();
         // $this->editing = $this->makeBlankOrder();
     }
@@ -71,14 +73,16 @@ class Show extends Component
         // dd($this->editing);
         $this->validate();
         $this->editing->save();
-        $this->order = $this->editing;
+        $this->production = $this->editing;
         $this->showEditModal = false;
     }
 
-    public function render(Production $production)
+
+
+    public function render()
     {
-        dd($production->id);
-        return view('livewire.productions.show', compact('production'));
+
+        return view('livewire.productions.show', ['production' => Production::find($this->productionId)]);
     }
 
 }

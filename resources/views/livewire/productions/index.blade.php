@@ -5,11 +5,9 @@
             <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link>
         </div>
         <div>
-            <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle commande</x-buttons.primary>
-            <x-buttons.primary wire:click="createItems" ><x-icons.plus />générere items</x-buttons.primary>
+            <x-buttons.primary wire:click="create" ><x-icons.plus />Nouvelle production</x-buttons.primary>
         </div>
     </div>
-
     <!-- Advanced Search -->
         <div>
             @if ($showFilters)
@@ -72,7 +70,6 @@
                         </span>
                     </x-tables.cell>
                     <x-tables.cell>
-                        <x-buttons.primary wire:click="createItems({{ $production->id }},'{{ $production->formula_id }}')" ><x-icons.plus />générere items</x-buttons.primary>
                         <x-buttons.edit-button-modal-sm wire:click="edit({{ $production->id }})"></x-buttons.edit-button-modal-sm>
                         <x-buttons.show-button-sm href="{{ route('productions.show', ['production' => $production]) }}" class="ml-2"></x-buttons.show-button-sm>
                     </x-tables.cell>
@@ -86,17 +83,12 @@
                         </x-tables.cell>
                     </x-tables.row>
                 @endforelse
-
             </x-slot>
-
         </x-tables.table>
-
         <div class="">
             {{ $productions->links() }}
         </div>
-
     </div>
-
 {{-- Modal for edit --}}
     <div >
         <form wire:submit.prevent="save">
@@ -113,7 +105,6 @@
                             @endforeach
                         </x-input.select>
                     </x-input.group>
-
                     <!-- production code No de production -->
                     <x-input.group for="code" label="No Production" :error="$errors->first('editing.code')">
                         <x-input.text wire:model="editing.code" id="code" />
@@ -129,12 +120,12 @@
                     </x-input.group>
 
                     <!-- production date -->
-                    <x-input.group for="production_date_for_editing" label="Date commande" :error="$errors->first('editing.production_date_for_editing')">
+                    <x-input.group for="production_date_for_editing" label="Date production" :error="$errors->first('editing.production_date_for_editing')">
                         <x-input.date wire:model="editing.production_date_for_editing" id="production_date_for_editing" />
                     </x-input.group>
 
                     <!-- ready date -->
-                    <x-input.group for="ready_date_for_editing" label="Date de livraison" :error="$errors->first('editing.ready_date_for_editing')">
+                    <x-input.group for="ready_date_for_editing" label="Date libérable" :error="$errors->first('editing.ready_date_for_editing')">
                         <x-input.date wire:model="editing.ready_date_for_editing" id="ready_date_for_editing" />
                     </x-input.group>
 
@@ -160,7 +151,6 @@
                     <x-input.group for="infos" label="Infos" :error="$errors->first('editing.infos')">
                         <x-input.textarea wire:model="editing.infos" id="infos" />
                     </x-input.group>
-
                 </x-slot>
                     <x-slot name="footer">
                         <x-secondary-button
@@ -168,12 +158,10 @@
                         wire:loading.attr="disabled" >
                             {{ __('Annuler') }}
                         </x-secondary-button>
-
                         {{-- <x-button class="ml-2" wire:loading.attr="disabled">
                             {{ __('Save') }}
                         </x-button> --}}
                         <x-buttons.primary type="submit">{{ __('Enregistrer') }}</x-buttons.primary>
-
                     </x-slot>
             </x-dialog-modal>
         </form>

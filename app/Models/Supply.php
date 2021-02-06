@@ -39,6 +39,11 @@ class Supply extends Model
         return $this->belongsTo(Listing::class);
     }
 
+    public function production_items()
+    {
+        return $this->hasMany(ProductionItem::class);
+    }
+
      public function getExpiryDateForHumansAttribute()
     {
         return $this->expiry_date->format('M, d, Y');
