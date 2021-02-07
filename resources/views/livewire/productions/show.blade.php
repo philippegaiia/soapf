@@ -61,7 +61,7 @@
 
                         <x-slot name="content">
                             <!-- Formula -->
-                            <x-input.group for="formula" label="Formule" :error="$errors->first('editing.formula_id')">
+                            <x-input.group hidden for="formula" label="Formule" :error="$errors->first('editing.formula_id')">
                                 <x-input.select wire:model="editing.formula_id" id="formula">
                                     @foreach ($formulas as $formula)
                                         <option value="{{ $formula->id }}">{{ $formula->ref_dip }} - {{ $formula->name }}</option>
@@ -133,7 +133,7 @@
         </div>
         <div >
             <div class="border-t-2 mt-4 border-dashed border-indigo-200"></div>
-            <livewire:productions.items  :productionId="$production->id" :ingredientId="$production->ingredient_id" :production="$production">
+            <livewire:productions.items  :productionId="$production->id" :ingredientId="$production->ingredient_id" :production="$production" :oilQty="$production->oil_qty" />
         </div>
     </div>
 </div>

@@ -19,7 +19,7 @@ class Items extends Component
     public $selectedSupply;
 
     public $production;
-
+    public $oilQty;
 
     public $listings;
     public $duplicate;
@@ -70,9 +70,7 @@ class Items extends Component
         return ProductionItem::make([
             'organic' => 0,
             'phase' => 0,
-            // 'ingredient_id' => 1,
             'production_id' => $this->productionId,
-            // 'listing_id' => 1,
         ]);
     }
 
@@ -124,7 +122,7 @@ class Items extends Component
     {
 
         $this->validate();
-        $this->editing['supply_id'] = $this->selectedSupply;
+        // $this->editing['supply_id'] = $this->selectedSupply;
         $this->editing->save();
         $this->showEditModal = false;
     }
@@ -143,36 +141,38 @@ class Items extends Component
 
         foreach($formulaItems as $formulaItem){
 
-                $item = new ProductionItem([
-                    'production_id' => $id,
-                    'ingredient_id' => $formulaItem->ingredient_id,
-                    'percentoils_dip'  => $formulaItem->percentoils_dip,
-                    'percentoils_real'  => $formulaItem->percentoils_real,
-                    'percenttotal_dip'  => $formulaItem->percenttotal_dip,
-                    'percenttotal_real'  => $formulaItem->percenttotal_real,
-                    'organic'  => $formulaItem->organic,
-                    'phase'  => $formulaItem->phase,
-                ]);
+            $item = new ProductionItem([
+                'production_id' => $id,
+                'ingredient_id' => $formulaItem->ingredient_id,
+                'percentoils_dip'  => $formulaItem->percentoils_dip,
+                'percentoils_real'  => $formulaItem->percentoils_real,
+                'percenttotal_dip'  => $formulaItem->percenttotal_dip,
+                'percenttotal_real'  => $formulaItem->percenttotal_real,
+                'organic'  => $formulaItem->organic,
+                'phase'  => $formulaItem->phase,
+            ]);
 
-                $production = Production::find($id);
+            $production = Production::find($id);
 
-                $production->production_items()->save($item);
-            }
+            $production->production_items()->save($item);
+        }
 
+    }
+
+    public function delete($id)
+    {
+        $item = ProductionItem::findOrFail($id);
+        $item->delete();
     }
 
     public function render()
     {
-        $items = ProductionItem::where('production_id', $this->productionId)->get();
+        // $items = ProductionItem::where('production_id', $this->productionId)->get();
         // dd($items);
         return view('livewire.productions.items', [
-            'items' => $items
+            'items' => ProductionItem::where('production_id', $this->productionId)
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get()
         ]);
     }
 }
-
-
-// return view('livewire.productions.items', [
-//             'items' => ProductionItem::where('production_id', $this->productionId)
-//             ->orderBy($this->sortField, $this->sortDirection)
-//             ->get()

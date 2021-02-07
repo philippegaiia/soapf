@@ -7,7 +7,7 @@
         </div> --}}
         <x-buttons.special wire:click="createItems({{ $production->id }},'{{ $production->formula_id }}')" ><x-icons.plus />générer items</x-buttons.special>
 
-        <div class="mx-4">
+        <div class="ml-4">
             <x-buttons.primary wire:click="create" ><x-icons.plus />Ajouter un ingredient</x-buttons.primary>
         </div>
     </div>
@@ -17,9 +17,10 @@
         <x-tables.table>
             <x-slot name="head">
                 <x-tables.heading sortable wire:click="sortBy('ingredient_id')" :direction="$sortField === 'ingredient_id' ? $sortDirection : null">Ingredient</x-tables.heading>
-                <x-tables.heading sortable wire:click="sortBy('supply_id')" :direction="$sortField === 'supply_id' ? $sortDirection : null">listing</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('supply_id')" :direction="$sortField === 'supply_id' ? $sortDirection : null">Batch</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('percentoils_real')" :direction="$sortField === 'percentoils_real' ? $sortDirection : null">% oils</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('percenttotal_real')" :direction="$sortField === 'percenttotal_real' ? $sortDirection : null">% total</x-tables.heading>
+                <x-tables.heading class="text-left">Poids kg</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('organic')" :direction="$sortField === 'organic' ? $sortDirection : null">Bio</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('phase')" :direction="$sortField === 'phase' ? $sortDirection : null">Phase</x-tables.heading>
                 <x-tables.heading/>
@@ -28,9 +29,10 @@
                 @forelse ($items as $item)
                 <x-tables.row wire:loading.class.delay="opacity-50">
                     <x-tables.cell>{{$item->ingredient->name}}</x-tables.cell>
-                    <x-tables.cell>{{$item->listing->code ?? ''}} {{$item->listing->name ?? ''}}</x-tables.cell>
+                    <x-tables.cell>{{$item->supply->code ?? ''}} {{$item->supply->name ?? ''}}</x-tables.cell>
                     <x-tables.cell>{{$item->percentoils_real}}</x-tables.cell>
                     <x-tables.cell>{{$item->percenttotal_real}}</x-tables.cell>
+                    <x-tables.cell>{{$item->percentoils_real * $oilQty/100}}</x-tables.cell>
                     <x-tables.cell>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->organic_color }}-100 text-{{ $item->organic_color }}-800 capitalize">
                             {{ $item->organic ? 'Bio' : 'Bio ou conv' }}
@@ -44,8 +46,10 @@
                      <x-tables.cell>
                         <x-buttons.edit-button-modal-sm wire:click="edit({{ $item->id }})"></x-buttons.edit-button-modal-sm>
                         <x-buttons.duplicate-button-modal-sm wire:click="duplicate({{ $item->id }})"></x-buttons.duplicate-button-modal-sm>
+                        <x-buttons.delete-button-sm wire:click="delete({{ $item->id }})" class="ml-4"></x-buttons.delete-button-sm>
                     </x-tables.cell>
                 </x-tables.row>
+
                 @empty
                     <x-tables.row >
                         <x-tables.cell colspan="8">
@@ -55,8 +59,17 @@
                         </x-tables.cell>
                     </x-tables.row>
                 @endforelse
+                <x-tables.row >
+            <x-tables.cell colspan="2">
+                <div class="flex justify-center items-center">
+                    <span class="py-2 text-gray-400 font-medium text-xl">Aucun produit trouvé</span>
+                </div>
+            </x-tables.cell>
+        </x-tables.row>
             </x-slot>
+
         </x-tables.table>
+
     </div>
 {{-- Modal for edit --}}
     <div >
