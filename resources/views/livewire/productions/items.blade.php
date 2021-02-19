@@ -1,26 +1,23 @@
 
 <div class="py-4 space-y-4 ">
-    <div class="flex justify-end">
-
-        {{-- <div class="w-2/4 flex space-x-4">
-            <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
-        </div> --}}
-        <x-buttons.special wire:click="createItems({{ $production->id }},'{{ $production->formula_id }}')" ><x-icons.plus />générer items</x-buttons.special>
-
-        <div class="ml-4">
-            <x-buttons.primary wire:click="create" ><x-icons.plus />Ajouter un ingredient</x-buttons.primary>
+    <div class="flex justify-between">
+        <div class="w-1/4 flex space-x-4">
+            <p class="text-xl">Items de la production</p>
+        </div>
+        <div>
+            <x-buttons.special wire:click="createItems({{ $production->id }},'{{ $production->formula_id }}')" ><x-icons.plus />générer items</x-buttons.special>
+            <x-buttons.primary wire:click="create" class="ml-4"><x-icons.plus />Ajouter un ingredient</x-buttons.primary>
         </div>
     </div>
-
     {{-- Production items table --}}
     <div class="flex-col space-y-4">
         <x-tables.table>
             <x-slot name="head">
                 <x-tables.heading sortable wire:click="sortBy('ingredient_id')" :direction="$sortField === 'ingredient_id' ? $sortDirection : null">Ingredient</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('supply_id')" :direction="$sortField === 'supply_id' ? $sortDirection : null">Batch</x-tables.heading>
-                <x-tables.heading sortable wire:click="sortBy('percentoils_real')" :direction="$sortField === 'percentoils_real' ? $sortDirection : null">% oils</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('percentoils_real')" :direction="$sortField === 'percentoils_real' ? $sortDirection : null">% Huiles</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('percenttotal_real')" :direction="$sortField === 'percenttotal_real' ? $sortDirection : null">% total</x-tables.heading>
-                <x-tables.heading class="text-left">Poids kg</x-tables.heading>
+                <x-tables.heading class="text-left">Poids g</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('organic')" :direction="$sortField === 'organic' ? $sortDirection : null">Bio</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('phase')" :direction="$sortField === 'phase' ? $sortDirection : null">Phase</x-tables.heading>
                 <x-tables.heading/>
@@ -30,9 +27,9 @@
                 <x-tables.row wire:loading.class.delay="opacity-50">
                     <x-tables.cell>{{$item->ingredient->name}}</x-tables.cell>
                     <x-tables.cell>{{$item->supply->code ?? ''}} {{$item->supply->name ?? ''}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percentoils_real}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percenttotal_real}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percentoils_real * $oilQty/100}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percentoils_real,2,',', ' ')}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percenttotal_real,3,',', ' ')}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percentoils_real * $oilQty/100*1000,0,',', ' ')}}</x-tables.cell>
                     <x-tables.cell>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->organic_color }}-100 text-{{ $item->organic_color }}-800 capitalize">
                             {{ $item->organic ? 'Bio' : 'Bio ou conv' }}
@@ -49,7 +46,6 @@
                         <x-buttons.delete-button-sm wire:click="delete({{ $item->id }})" class="ml-4"></x-buttons.delete-button-sm>
                     </x-tables.cell>
                 </x-tables.row>
-
                 @empty
                     <x-tables.row >
                         <x-tables.cell colspan="8">
@@ -59,17 +55,14 @@
                         </x-tables.cell>
                     </x-tables.row>
                 @endforelse
-                <x-tables.row >
-            <x-tables.cell colspan="2">
-                <div class="flex justify-center items-center">
-                    <span class="py-2 text-gray-400 font-medium text-xl">Aucun produit trouvé</span>
-                </div>
-            </x-tables.cell>
-        </x-tables.row>
             </x-slot>
-
         </x-tables.table>
-
+        <div class="align-middle max-w-full overflow-x-auto shadow-lg sm:rounded-lg px-4 bg-purple-50 bg-opacity-100">
+            <div class="flex justify-start items-center py-2">
+                <span class="pr-4 text-gray-900 text-xl font-semibold ">Total % Huiles (doit être 100%): <span class="pl-2 font-bold "> {{ number_format($totalOils,2,',', ' ') }}%</span></span>
+                <span class="px-6 text-gray-900 text-xl font-semibold ">% Total: <span class="pl-2 font-bold "> {{ number_format($total,2,',', ' ') }}%</span></span>
+            </div>
+        </div>
     </div>
 {{-- Modal for edit --}}
     <div >

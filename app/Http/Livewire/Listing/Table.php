@@ -26,7 +26,7 @@ class Table extends Component
         return view('livewire.listing.table', [
             'listings' => Listing::search($this->search)
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
-            ->simplePaginate($this->perPage)
+            ->paginate($this->perPage)
         ]);
     }
 }

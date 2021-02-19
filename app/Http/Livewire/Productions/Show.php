@@ -16,6 +16,8 @@ class Show extends Component
     public $production;
 
     public $productionId;
+    public $totalOils;
+    public $total;
 
     public Production $editing;
 
@@ -81,7 +83,6 @@ class Show extends Component
 
     public function render()
     {
-
         return view('livewire.productions.show', ['production' => Production::find($this->productionId)]);
     }
 

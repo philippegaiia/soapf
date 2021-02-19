@@ -79,7 +79,11 @@ class Order extends Model
 
     public function getDeliveryDateForHumansAttribute()
     {
+        // $orderdate = new Carbon;
+        // $orderdate = Carbon::create($this->delivery_date)->locale('fr_FR');
         return $this->delivery_date->format('M, d, Y');
+        // dd($orderdate);
+        // return $orderdate->toFormattedDateString();
     }
 
 

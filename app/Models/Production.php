@@ -72,7 +72,7 @@ class Production extends Model
 
     public function getReadyDateForHumansAttribute()
     {
-        return $this->ready_date->format('M, d, Y');
+        return $this->ready_date->format('d M, y');
     }
 
 

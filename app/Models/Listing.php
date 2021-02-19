@@ -68,7 +68,8 @@ class Listing extends Model
             4 => 'Fût',
             5 => 'Flacon',
             6 => 'Unitaire',
-            7 => 'Vrac'
+            7 => 'Vrac',
+            10 => 'Sac'
         ];
     }
 

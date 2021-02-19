@@ -1,6 +1,7 @@
-<div class="py-4 space-y-4 ">
+<div class="py-4 space-y-4 " >
     <div class="flex justify-between">
         <div class="w-2/4 flex space-x-4">
+            Current time: {{ now() }}
             <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
             <x-buttons.link wire:click="$toggle('showFilters')">@if ($showFilters) Masquer les @endIf Filtres...</x-buttons.link>
         </div>
@@ -50,7 +51,7 @@
                 <x-tables.heading sortable wire:click="sortBy('formula_id')" :direction="$sortField === 'formula_id' ? $sortDirection : null">Formule</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('production_date')" :direction="$sortField === 'production_date' ? $sortDirection : null">Production</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('ready_date')" :direction="$sortField === 'ready_date' ? $sortDirection : null">Prêt le</x-tables.heading>
-                <x-tables.heading sortable wire:click="sortBy('masterbatch')" :direction="$sortField === 'masterbatch' ? $sortDirection : null">No BL</x-tables.heading>
+                <x-tables.heading sortable wire:click="sortBy('masterbatch')" :direction="$sortField === 'masterbatch' ? $sortDirection : null">masterbatch</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('cosmecert')" :direction="$sortField === 'cosmecert' ? $sortDirection : null">Cosmecert</x-tables.heading>
                 <x-tables.heading sortable wire:click="sortBy('status')" :direction="$sortField === 'status' ? $sortDirection : null">Statut</x-tables.heading>
                 <x-tables.heading/>
@@ -78,7 +79,7 @@
                     <x-tables.row >
                         <x-tables.cell colspan="8">
                             <div class="flex justify-center items-center">
-                                <span class="py-8 text-gray-400 font-medium text-xl">Aucune commande trouvée</span>
+                                <span class="py-8 text-gray-400 font-medium text-xl">Aucune production trouvée</span>
                             </div>
                         </x-tables.cell>
                     </x-tables.row>
@@ -100,6 +101,7 @@
                     <!-- Formula -->
                     <x-input.group for="formula" label="Formule" :error="$errors->first('editing.formula_id')">
                         <x-input.select wire:model="editing.formula_id" id="formula">
+                            <option value="" selected>-- Sélectionner une formule --</option>
                             @foreach ($formulas as $formula)
                                 <option value="{{ $formula->id }}">{{ $formula->ref_dip }} - {{ $formula->name }}</option>
                             @endforeach

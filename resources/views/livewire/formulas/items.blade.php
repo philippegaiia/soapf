@@ -1,10 +1,10 @@
 
 <div class="py-4 space-y-4 ">
-    <div class="flex justify-end">
+    <div class="flex justify-between">
+        <div class="w-2/4 flex space-x-4">
+            <p class="text-2xl font-semibold">Items de la formule</p>
+        </div>
 
-        {{-- <div class="w-2/4 flex space-x-4">
-            <x-input class=" focus:m-5" type="text" wire:model.debounce.400ms="search" placeholder="Rechercher..." />
-        </div> --}}
         <div>
             <x-buttons.primary wire:click="create" ><x-icons.plus />Ajouter un ingredient à la formule</x-buttons.primary>
         </div>
@@ -39,10 +39,10 @@
                 @forelse ($items as $item)
                 <x-tables.row wire:loading.class.delay="opacity-50">
                     <x-tables.cell>{{$item->ingredient->name}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percentoils_dip}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percenttotal_dip}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percentoils_real}}</x-tables.cell>
-                    <x-tables.cell>{{$item->percenttotal_real}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percentoils_dip,3,',', ' ')}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percenttotal_dip,3,',', ' ')}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percentoils_real,3,',', ' ')}}</x-tables.cell>
+                    <x-tables.cell>{{number_format($item->percenttotal_real,3,',', ' ')}}</x-tables.cell>
                     <x-tables.cell>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->organic_color }}-100 text-{{ $item->organic_color }}-800 capitalize">
                             {{ $item->organic ? 'Bio' : 'Bio ou conv' }}

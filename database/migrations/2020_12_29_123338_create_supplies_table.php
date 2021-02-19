@@ -17,7 +17,7 @@ class CreateSuppliesTable extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained();
-            $table->foreignId('listing_id')->constrained();
+            $table->foreignId('listing_id')->constrained()->nullable();
             $table->string('batch_no')->nullable();
             $table->integer('price')->nullable();
             $table->float('qty',7,2);
@@ -27,9 +27,9 @@ class CreateSuppliesTable extends Migration
             $table->timestamps();
         });
 
-        // Artisan::call('db:seed', [
-        //     '--class' => SupplySeeder::class
-        // ]);
+        Artisan::call('db:seed', [
+            '--class' => SupplySeeder::class
+        ]);
     }
 
     /**

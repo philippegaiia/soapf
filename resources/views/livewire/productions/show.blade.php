@@ -133,7 +133,13 @@
         </div>
         <div >
             <div class="border-t-2 mt-4 border-dashed border-indigo-200"></div>
-            <livewire:productions.items  :productionId="$production->id" :ingredientId="$production->ingredient_id" :production="$production" :oilQty="$production->oil_qty" />
+            <livewire:productions.items :productionId="$production->id"
+                                        :ingredientId="$production->ingredient_id"
+                                        :production="$production"
+                                        :oilQty="$production->oil_qty"
+                                        :totalOils="$totalOils"
+                                        :total="$total"
+                                         />
         </div>
     </div>
 </div>

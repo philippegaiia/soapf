@@ -5,9 +5,7 @@ namespace App\Http\Livewire\Productions;
 use App\Models\Formula;
 use Livewire\Component;
 use App\Models\Production;
-use App\Models\FormulaItem;
 use Livewire\WithPagination;
-use App\Models\ProductionItem;
 
 class Index extends Component
 
@@ -28,16 +26,12 @@ class Index extends Component
     ];
 
     public $formulas;
-
     public $formulaId;
-
     public $formulaItems;
-
     public $productionId;
-
     public Production $editing;
-
     protected $queryString = ['sortField', 'sortDirection'];
+
 
     protected function rules() {
 
@@ -57,11 +51,9 @@ class Index extends Component
 
     public function mount()
     {
-        $this->formulas = Formula::all();
+        $this->formulas = Formula::orderBy('code')->get();
         $this->editing = $this->makeBlankProduction();
     }
-
-
 
     public function sortBy($field)
     {
@@ -79,9 +71,11 @@ class Index extends Component
         return Production::make(['production_date' => now(),
                             'ready_date' =>now(),
                             'status' => 0,
-                            'formula_id' => 1,
-                            'total_oils' => 0,
-                            'total_qty' => 0
+                            'total_oils' => 26,
+                            'total_qty' => 0,
+                            'cosmecert' => 1,
+                            'masterbatch' => 0,
+                            'code' => 'T' . time()
                             ]);
     }
 

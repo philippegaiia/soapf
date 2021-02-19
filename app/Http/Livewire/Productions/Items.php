@@ -21,6 +21,7 @@ class Items extends Component
     public $production;
     public $oilQty;
 
+
     public $listings;
     public $duplicate;
 
@@ -36,9 +37,7 @@ class Items extends Component
         return [
             'editing.ingredient_id' => 'required',
             'editing.supply_id' => 'nullable',
-            // 'editing.percentoils_dip' => 'required|numeric|min:0|max:100',
             'editing.percentoils_real' => 'required|numeric|min:0|max:100',
-            // 'editing.percenttotal_dip' => 'required|numeric|min:0|max:100',
             'editing.percenttotal_real' => 'required|numeric|min:0|max:100',
             'editing.organic' => 'required',
             'editing.phase' => 'required',
@@ -165,14 +164,27 @@ class Items extends Component
         $item->delete();
     }
 
+    // public function sumOils()
+    // {
+    //     $oils = ProductionItem::where('phase', '=',  'Saponification')->where('production_id', $this->productionId)->get();
+    //     $oils->oils->sum('percentoils_real');
+    //     return $oils;
+    // }
+
     public function render()
     {
-        // $items = ProductionItem::where('production_id', $this->productionId)->get();
-        // dd($items);
+        $totalOils = ProductionItem::where('phase', '=',  'Saponification')->where('production_id', $this->productionId)->get();
+        $totalOils = $totalOils->sum('percentoils_real');
+        // $totoil = $this->totalOils;
+        $total = ProductionItem::where('production_id', $this->productionId)->get();
+        $total = $total->sum('percenttotal_real');
+
         return view('livewire.productions.items', [
             'items' => ProductionItem::where('production_id', $this->productionId)
             ->orderBy($this->sortField, $this->sortDirection)
-            ->get()
+            ->get(),
+            'totalOils' => $totalOils,
+            'total' => $total
         ]);
     }
 }

@@ -6,8 +6,8 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200">
+        {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class=" mx-auto px-6 py-3 bg-white border-b border-gray-200"> --}}
                 <div class="flex items-center  pb-3 text-right  sm:justify-center md:justify-end ">
                         <x-buttons.secondary-button href="{{ route('suppliers.create') }}" class="block">
                             {{ __('Créer un nouveau fournisseur') }}
@@ -65,13 +65,13 @@
 
                                                 <td class=" whitespace-nowrap py-2 flex">
 
-                                                    <x-buttons.add-button  href="{{ route('suppliers.orders.create', ['supplier' => $supplier]) }}" class="bg-pink-50 ml-3 hover:bg-pink-100">
+                                                    {{-- <x-buttons.add-button  href="{{ route('suppliers.orders.create', ['supplier' => $supplier]) }}" class="bg-pink-50 ml-3 hover:bg-pink-100">
                                                         {{ __('Commande') }}
                                                     </x-buttons.add-button>
 
                                                     <x-buttons.add-button href="{{ route('suppliers.listings.create', ['supplier' => $supplier]) }}" class="bg-purple-50 hover:bg-purple-100 ml-3">
                                                         {{ __('Listing') }}
-                                                    </x-buttons.add-button>
+                                                    </x-buttons.add-button> --}}
 
                                                     <x-buttons.show-button-sm href="{{ route('suppliers.show', ['supplier' => $supplier]) }}" class="ml-4">
                                                     </x-buttons.show-button-sm>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {{-- </div>
+        </div> --}}
     </div>
 </x-app-layout>
